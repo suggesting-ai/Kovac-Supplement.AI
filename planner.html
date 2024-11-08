@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI Supplement Planner - Fragebogen</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #ffffff;
+            --accent-color: #090909;
+            --text-color: #000000;
+            --background-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--secondary-color);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.24);
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+            
+        }
+
+        .header {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form-container {
+            padding: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .option-button {
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.083);
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            border: 1.6px solid var(--accent-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 0 calc(50% - 5px);
+            font-size: 15px;
+            font-weight: bolder;
+        }
+
+        .option-button.selected {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .option-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .option-button svg {
+            margin-right: 5px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .organic-input {
+            width: 95%;
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.083);
+            padding: 10px ;
+            border: 1.5px solid var(--accent-color);
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            
+        }
+
+        .organic-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 1.4px var(--accent-color);
+        }
+
+        #generateButton {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            box-shadow: o 2px 4px rgba(0, 0, 0, 0.24);
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bolder;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        #generateButton:hover {
+            background-color: #333333;
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .modern-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+
+        .circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            margin: 0 5px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .circle:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .circle:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.5); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+
+        #result {
+            width: 97%;
+            margin-top: 20px;
+            padding: 13px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .supplement-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .supplement-item:hover {
+            background-color: #d0cece;
+            transform: translateY(-2px);
+        }
+
+        .supplement-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .supplement-info {
+            flex-grow: 1;
+        }
+
+        .supplement-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .supplement-dosage {
+            font-size: 14px;
+            color: #5f5e5e;
+        }
+
+        .supplement-details-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            border-radius: 9px;
+            padding: 14px;
+        }
+
+        .supplement-details {
+            border: 1.4px solid black;
+            background-color: rgb(237, 234, 234);
+            color: black;
+            padding: 20px;
+            border-radius: 9px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            max-width: 480px;
+            width: 98%;
+            
+        }
+
+        .buy-button {
+            border-top: 1.4px solid white;
+            padding-top: 20px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bolder;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #333333;
+        }
+
+        @media (max-width: 600px) {
+            .option-button {
+                flex: 1 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            KI Supplement Planner
+        </div>
+        <div class="form-container">
+            <form id="userForm">
+                <div class="input-group">
+                    <label for="height">Größe (cm):</label>
+                    <input type="number" id="height" class="organic-input" required min="100" max="250" step="1">
+                </div>
+                <div class="input-group">
+                    <label for="weight">Gewicht (kg):</label>
+                    <input type="number" id="weight" class="organic-input" required min="30" max="250" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>Aktuelle Gefühlslage:</label>
+                    <div class="button-group" id="moodGroup">
+                        <button type="button" class="option-button" data-value="happy">Glücklich</button>
+                        <button type="button" class="option-button" data-value="stressed">Gestresst</button>
+                        <button type="button" class="option-button" data-value="tired">Müde</button>
+                        <button type="button" class="option-button" data-value="energetic">Energiegeladen</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Sportliche Aktivität:</label>
+                    <div class="button-group" id="exerciseGroup">
+                        <button type="button" class="option-button" data-value="low">Wenig (0-2h/Woche)</button>
+                        <button type="button" class="option-button" data-value="medium">Mittel (3-5h/Woche)</button>
+                        <button type="button" class="option-button" data-value="high">Viel (> 5h/Woche)</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Schlafqualität:</label>
+                    <div class="button-group" id="sleepGroup">
+                        <button type="button" class="option-button" data-value="poor">Schlecht</button>
+                        <button type="button" class="option-button" data-value="average">Durchschnittlich</button>
+                        <button type="button" class="option-button" data-value="good">Gut</button>
+                    </div>
+                </div>
+                <button type="submit" id="generateButton">Supplement Plan generieren</button>
+            </form>
+            <div id="loading">
+                <div class="modern-loader">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>
+                <p>Generiere Supplement Plan...</p>
+            </div>
+            <div id="result"></div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.button-group').forEach(group => {
+            group.addEventListener('click', function(e) {
+                const button = e.target.closest('.option-button');
+                if (button) {
+                    group.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('selected'));
+                    button.classList.add('selected');
+                }
+            });
+        });
+
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            
+            // Simuliere API-Aufruf und Verarbeitungszeit
+            setTimeout(generateSupplementPlan, 2000);
+        });
+
+        function generateSupplementPlan() {
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const mood = document.querySelector('#moodGroup .selected')?.dataset.value;
+            const exercise = document.querySelector('#exerciseGroup .selected')?.dataset.value;
+            const sleep = document.querySelector('#sleepGroup .selected')?.dataset.value;
+
+            let plan = '<h2>Ihr personalisierter Supplement Plan</h2>';
+
+            // Basis-Supplemente für alle
+            plan += supplementItem('🍎', 'Multivitamin', `1 Tablette täglich`, 'Grundversorgung mit essentiellen Vitaminen und Mineralstoffen');
+            plan += supplementItem('🌊', 'Omega-3', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Unterstützt Herz-Kreislauf-Gesundheit und kognitive Funktionen');
+
+            // Mood-basierte Empfehlungen
+            if (mood === 'stressed' || mood === 'tired') {
+                plan += supplementItem('🌿', 'Ashwagandha', `${calculateDosage(weight, 300, 600)} mg, morgens und abends`, 'Unterstützt die Stressresistenz und verbessert die Stimmung');
+                plan += supplementItem('🍵', 'L-Theanin', `${calculateDosage(weight, 100, 200)} mg täglich`, 'Fördert Entspannung ohne Müdigkeit');
+                plan += supplementItem('🌺', 'Rhodiola Rosea', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Verbessert die Stressresistenz und reduziert Müdigkeit');
+            }
+
+            if (mood === 'tired') {
+                plan += supplementItem('☕️', 'Koffein + L-Theanin', '100mg Koffein + 200mg L-Theanin, morgens', 'Verbessert Fokus und Energie ohne Nervosität');
+                plan += supplementItem('🍄', 'Cordyceps', `${calculateDosage(weight, 1000, 3000)} mg täglich`, 'Steigert Energie und Ausdauer');
+            }
+
+            if (mood === 'happy' || mood === 'energetic') {
+                plan += supplementItem('🌞', '5-HTP', `${calculateDosage(weight, 50, 100)} mg vor dem Schlafengehen`, 'Unterstützt die Serotonin-Produktion für ausgeglichene Stimmung');
+                plan += supplementItem('🍊', 'Vitamin C', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Stärkt das Immunsystem und unterstützt die allgemeine Gesundheit');
+            }
+
+            // Aktivitäts-basierte Empfehlungen
+            if (exercise === 'high') {
+                const proteinDosage = Math.round(weight * 1.6);
+                plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich, verteilt auf 2-3 Portionen`, 'Unterstützt Muskelaufbau und Regeneration');
+                plan += supplementItem('🔋', 'Kreatin', '5g täglich', 'Verbessert Kraftleistung und Muskelmasse');
+                plan += supplementItem('🍋', 'BCAA', `${calculateDosage(weight, 5, 10)}g vor dem Training`, 'Reduziert Muskelermüdung und fördert die Erholung');
+                plan += supplementItem('🥤', 'Beta-Alanin', `${calculateDosage(weight, 2, 5)}g täglich`, 'Verbessert die Ausdauer und reduziert Muskelermüdung');
+            } else if (exercise === 'medium') {
+                const proteinDosage = Math.round(weight * 1.2);
+                plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich`, 'Unterstützt Muskelerhalt und Regeneration');
+                plan += supplementItem('🍓', 'Glutamin', `${calculateDosage(weight, 5, 10)}g täglich`, 'Fördert die Muskelregeneration und unterstützt das Immunsystem');
+            }
+
+            // Schlaf-basierte Empfehlungen
+            if (sleep === 'poor') {
+                plan += supplementItem('😴', 'Melatonin', '0.5-1mg 30 Minuten vor dem Schlafengehen', 'Reguliert den Schlaf-Wach-Rhythmus');
+                plan += supplementItem('🌙', 'Magnesium', `${calculateDosage(weight, 200, 400)}mg vor dem Schlafengehen`, 'Fördert Muskelentspannung und verbessert die Schlafqualität');
+                plan += supplementItem('🍯', 'Glycin', `3g vor dem Schlafengehen`, 'Verbessert die Schlafqualität und fördert tieferen Schlaf');
+            }
+
+            if (sleep === 'average' || sleep === 'poor') {
+                plan += supplementItem('🌿', 'Baldrian', '300-600mg 1 Stunde vor dem Schlafengehen', 'Natürliches Beruhigungsmittel, das die Schlafqualität verbessern kann');
+                plan += supplementItem('🍵', 'L-Tryptophan', `${calculateDosage(weight, 500, 1000)}mg vor dem Schlafengehen`, 'Unterstützt die Produktion von Melatonin und Serotonin');
+            }
+
+            // Gewichts- und größenbasierte Empfehlungen
+            const bmi = calculateBMI(weight, height);
+            if (bmi < 18.5) {
+                plan += supplementItem('🥛', 'Maltodextrin', `${calculateDosage(weight, 0.5, 1)}g täglich`, 'Kalorienreiche Kohlenhydratquelle zur Gewichtszunahme');
+                plan += supplementItem('🥑', 'MCT Öl', `1-2 Esslöffel täglich`, 'Liefert schnell verfügbare Energie und unterstützt die Gewichtszunahme');
+            } else if (bmi > 25) {
+                plan += supplementItem('🍵', 'Grüner Tee Extrakt', '500mg täglich', 'Kann den Stoffwechsel unterstützen und die Fettverbrennung fördern');
+                plan += supplementItem('🌶️', 'Cayennepfeffer', '500mg vor den Mahlzeiten', 'Kann den Stoffwechsel ankurbeln und den Appetit reduzieren');
+            }
+
+            // Vitamin D für alle, aber Dosis nach Gewicht
+            plan += supplementItem('☀️', 'Vitamin D3', `${calculateVitaminDDosage(weight)} IU täglich`, 'Unterstützt Immunsystem, Knochengesundheit und allgemeines Wohlbefinden');
+
+            plan += '<p><strong>Hinweis:</strong> Bitte besprechen Sie die Einnahme von Nahrungsergänzungsmitteln mit Ihrem Arzt, insbesondere wenn Sie Medikamente einnehmen oder gesundheitliche Probleme haben.</p>';
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('result').innerHTML = plan;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function supplementItem(icon, name, dosage, description) {
+            return `
+                <div class="supplement-item" onclick="showSupplementDetails('${name}', '${dosage}', '${description}')">
+                    <div class="supplement-icon">${icon}</div>
+                    <div class="supplement-info">
+                        <div class="supplement-name">${name}</div>
+                        <div class="supplement-dosage">${dosage}</div>
+                        <div class="supplement-description">${description}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showSupplementDetails(name, dosage, description) {
+            const detailsHtml = `
+                <div class="supplement-details">
+                    <h3>${name}</h3>
+                    <p><strong>Dosierung:</strong> ${dosage}</p>
+                    <p><strong>Beschreibung:</strong> ${description}</p>
+                    <p><strong>Vorteile:</strong> ${getSupplementBenefits(name)}</p>
+                    <p><strong>Mögliche Nebenwirkungen:</strong> ${getSupplementSideEffects(name)}</p>
+                    <button onclick="buyNow('${name}')" class="buy-button">Jetzt kaufen</button>
+                </div>
+            `;
+            
+            const detailsContainer = document.createElement('div');
+            detailsContainer.innerHTML = detailsHtml;
+            detailsContainer.className = 'supplement-details-container';
+            document.body.appendChild(detailsContainer);
+
+            detailsContainer.onclick = function(event) {
+                if (event.target === detailsContainer) {
+                    document.body.removeChild(detailsContainer);
+                }
+            };
+        }
+
+        function getSupplementBenefits(name) {
+            // Diese Funktion würde normalerweise Daten aus einer Datenbank abrufen
+            const benefits = {
+                'Multivitamin': 'Unterstützt allgemeine Gesundheit, füllt Nährstofflücken',
+                'Omega-3': 'Fördert Herz-Kreislauf-Gesundheit, unterstützt Gehirnfunktion',
+                'Ashwagandha': 'Reduziert Stress, verbessert kognitive Funktionen',
+                'L-Theanin': 'Fördert Entspannung, verbessert Fokus',
+                'Rhodiola Rosea': 'Steigert Energie, reduziert Stress und Müdigkeit',
+                'Koffein + L-Theanin': 'Steigert Energie und Konzentration',
+                'Cordyceps': 'Verbessert Ausdauer und Energieproduktion',
+                '5-HTP': 'Verbessert Stimmung, unterstützt gesunden Schlaf',
+                'Vitamin C': 'Stärkt das Immunsystem, wirkt als Antioxidans',
+                'Whey Protein': 'Fördert Muskelaufbau und -regeneration',
+                'Kreatin': 'Steigert Kraft und Muskelmasse',
+                'BCAA': 'Reduziert Muskelermüdung, unterstützt Muskelaufbau',
+                'Beta-Alanin': 'Verbessert Ausdauer und reduziert Muskelermüdung',
+                'Glutamin': 'Unterstützt Muskelregeneration und Immunsystem',
+                'Melatonin': 'Verbessert Schlafqualität und -dauer',
+                'Magnesium': 'Unterstützt Muskel- und Nervenfunktion, fördert Schlaf',
+                'Glycin': 'Verbessert Schlafqualität, unterstützt kognitive Funktionen',
+                'Baldrian': 'Fördert Entspannung und verbessert Schlafqualität',
+                'L-Tryptophan': 'Unterstützt Serotonin-Produktion, verbessert Stimmung und Schlaf',
+                'Maltodextrin': 'Liefert schnelle Energie, unterstützt Gewichtszunahme',
+                'MCT Öl': 'Liefert schnelle Energie, unterstützt Gewichtsmanagement',
+                'Grüner Tee Extrakt': 'Fördert Stoffwechsel und Fettverbrennung',
+                'Cayennepfeffer': 'Unterstützt Stoffwechsel und Appetitregulation',
+                'Vitamin D3': 'Stärkt Knochen, unterstützt Immunsystem und Stimmung'
+            };
+            return benefits[name] || 'Informationen nicht verfügbar';
+        }
+
+        function getSupplementSideEffects(name) {
+            // Diese Funktion würde normalerweise Daten aus einer Datenbank abrufen
+            const sideEffects = {
+                'Multivitamin': 'Übelkeit bei Einnahme auf leeren Magen',
+                'Omega-3': 'Fischiger Nachgeschmack, mögliche Blutungsgefahr in hohen Dosen',
+                'Ashwagandha': 'Magenbeschwerden, Durchfall',
+                'L-Theanin': 'Kopfschmerzen, Schläfrigkeit',
+                'Rhodiola Rosea': 'Schwindel, Unruhe bei hohen Dosen',
+                'Koffein + L-Theanin': 'Schlafstörungen bei später Einnahme',
+                'Cordyceps': 'Magenbeschwerden, Durchfall',
+                '5-HTP': 'Übelkeit, Magenbeschwerden',
+                'Vitamin C': 'Durchfall bei hohen Dosen',
+                'Whey Protein': 'Blähungen, Verstopfung',
+                'Kreatin': 'Wassereinlagerungen, Magenbeschwerden',
+                'BCAA': 'Müdigkeit, Kopfschmerzen',
+                'Beta-Alanin': 'Kribbeln auf der Haut (Parästhesie)',
+                'Glutamin': 'Verstopfung, Blähungen',
+                'Melatonin': 'Tagesmüdigkeit, Kopfschmerzen',
+                'Magnesium': 'Durchfall bei hoher Dosierung',
+                'Glycin': 'Magenbeschwerden, Übelkeit',
+                'Baldrian': 'Kopfschmerzen, Schläfrigkeit',
+                'L-Tryptophan': 'Schläfrigkeit, Schwindel',
+                'Maltodextrin': 'Blähungen, Gewichtszunahme',
+                'MCT Öl': 'Durchfall, Magenkrämpfe',
+                'Grüner Tee Extrakt': 'Schlafstörungen, Nervosität',
+                'Cayennepfeffer': 'Magenbrennen, Reizung der Schleimhäute',
+                'Vitamin D3': 'Übelkeit, Nierenprobleme bei Überdosierung'
+            };
+            return sideEffects[name] || 'Informationen nicht verfügbar';
+        }
+
+        function buyNow(name) {
+            alert(`Sie werden nun zum Kauf von ${name} weitergeleitet. Dies ist eine Simulation.`);
+        }
+
+        function calculateDosage(weight, minDose, maxDose) {
+            return Math.round((weight / 70) * (maxDose - minDose) + minDose);
+        }
+
+        function calculateVitaminDDosage(weight) {
+            return Math.round(weight * 35);
+        }
+
+        function calculateBMI(weight, height) {
+            return weight / ((height / 100) ** 2);
+        }
+    </script>
+</body>
+</html>

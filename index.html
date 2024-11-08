@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kovac AI Supplement Planner</title>
+    <title>KI Supplement Planner</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         :root {
-            --primary-color: #00ff9d;
-            --secondary-color: #00b8ff;
-            --background-color: #0a192f;
-            --text-color: #e6f1ff;
+            --primary-color: #ffffff;
+            --secondary-color: #ffffff;
+            --accent-color: #212121;
+            --text-color: #000000;
+            --background-color: #ffffff;
         }
 
         body {
@@ -19,577 +20,145 @@
             background-color: var(--background-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 255, 157, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 184, 255, 0.1) 0%, transparent 20%);
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            overflow: hidden;
-            width: 100%;
-            max-width: 600px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .header {
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: var(--background-color);
-            padding: 20px;
+        header {
+            background-color: rgb(0, 0, 0);
+            padding: 20px 0;
             text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
+            color: white;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 20px,
-                rgba(255, 255, 255, 0.1) 20px,
-                rgba(255, 255, 255, 0.1) 40px
-            );
-            transform: rotate(30deg);
-            animation: moveStripes 20s linear infinite;
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
         }
 
-        @keyframes moveStripes {
-            0% { transform: rotate(30deg) translateY(0); }
-            100% { transform: rotate(30deg) translateY(40px); }
+        .hero {
+            background-color: var(--primary-color);
+            padding: 60px 0;
+            text-align: center;
         }
 
-        .form-container {
-            padding: 20px;
-        }
-
-        .input-group {
+        .hero h2 {
+            color: var(--accent-color);
+            font-size: 2.5em;
             margin-bottom: 20px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--text-color);
-            font-weight: bold;
+        .hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px;
         }
 
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .option-button {
-            padding: 10px 15px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--primary-color);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .option-button.selected {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-        }
-
-        .option-button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .option-button svg {
-            margin-right: 5px;
-            width: 20px;
-            height: 20px;
-        }
-
-        .organic-input {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            color: var(--text-color);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .organic-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--primary-color);
-        }
-
-        #generateButton {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: var(--background-color);
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        #generateButton:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.4);
-        }
-
-        #loading {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .modern-loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
-        }
-
-        .circle {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            margin: 0 5px;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        .circle:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .circle:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(0.5); opacity: 0.5; }
-            50% { transform: scale(1); opacity: 1; }
-        }
-
-
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
-            display: none;
-        }
-
-        .supplement-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer; /* Added cursor pointer */
-        }
-
-        .supplement-item:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .supplement-icon {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .supplement-info {
-            flex-grow: 1;
-        }
-
-        .supplement-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .supplement-dosage {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .supplement-details-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .supplement-details {
-            background-color: rgba(37, 49, 50, 0.9);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 255, 157, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 184, 255, 0.1) 0%, transparent 20%);
-            padding: 20px;
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 12px 24px;
+            text-decoration: none;
             border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.293);
+
         }
 
-        .buy-button {
-            background-color:  rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.505);
-            padding: 10px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-weight: bolder;
+        .cta-button:hover {
+            background-color: #333333;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .feature {
+            flex-basis: calc(33.333% - 20px);
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border: 1.5px solid black;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.293);
+            border-radius: 9px;
+            text-align: center;
+        }
+
+        .feature h3 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .feature {
+                flex-basis: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feature {
+                flex-basis: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <svg class="supplement-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path>
-            </svg>
-            AI Supplement Planner
+    <header>
+        <div class="container">
+            <h1>KI Supplement Planner</h1>
         </div>
-        <div class="form-container">
-            <form id="userForm">
-                <div class="input-group">
-                    <label for="height">Größe (cm):</label>
-                    <input type="number" id="height" class="organic-input" required min="100" max="250" step="1">
-                </div>
-                <div class="input-group">
-                    <label for="weight">Gewicht (kg):</label>
-                    <input type="number" id="weight" class="organic-input" required min="30" max="250" step="0.1">
-                </div>
-                <div class="input-group">
-                    <label>Aktuelle Gefühlslage:</label>
-                    <div class="button-group" id="moodGroup">
-                        <button type="button" class="option-button" data-value="happy">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                                <line x1="9" y1="9" x2="9.01" y2="9"/>
-                                <line x1="15" y1="9" x2="15.01" y2="9"/>
-                            </svg>
-                            Glücklich
-                        </button>
-                        <button type="button" class="option-button" data-value="stressed">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="14.31" y1="8" x2="20.05" y2="17.94"/>
-                                <line x1="9.69" y1="8" x2="21.17" y2="8"/>
-                                <line x1="7.38" y1="12" x2="13.12" y2="2.06"/>
-                                <line x1="9.69" y1="16" x2="3.95" y2="6.06"/>
-                                <line x1="14.31" y1="16" x2="2.83" y2="16"/>
-                                <line x1="16.62" y1="12" x2="10.88" y2="21.94"/>
-                            </svg>
-                            Gestresst
-                        </button>
-                        <button type="button" class="option-button" data-value="tired">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="8" y1="15" x2="16" y2="15"/>
-                                <line x1="9" y1="9" x2="9.01" y2="9"/>
-                                <line x1="15" y1="9" x2="15.01" y2="9"/>
-                            </svg>
-                            Müde
-                        </button>
-                        <button type="button" class="option-button" data-value="energetic">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                                <line x1="9" y1="9" x2="9.01" y2="9"/>
-                                <line x1="15" y1="9" x2="15.01" y2="9"/>
-                                <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>
-                            </svg>
-                            Energiegeladen
-                        </button>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Sport Activity:</label>
-                    <div class="button-group" id="exerciseGroup">
-                        <button type="button" class="option-button" data-value="low">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                                <line x1="9" y1="9" x2="9.01" y2="9"/>
-                                <line x1="15" y1="9" x2="15.01" y2="9"/>
-                            </svg>
-                            Low (0-2h/Week)
-                        </button>
-                        <button type="button" class="option-button" data-value="medium">
-                            <svg  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/>
-                                <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-                                <path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/>
-                                <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/>
-                                <path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/>
-                                <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
-                                <path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/>
-                                <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/>
-                            </svg>
-                            Average (3-5h/Week)
-                        </button>
-                        <button type="button" class="option-button" data-value="high">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 5h3v3M13 20l-1-3.5 3.5-2 1.5 3.5-3 2zM10.5 8.5L9 11l1.5 2.5L12 11z"/>
-                                <path d="M15 7a3 3 0 1 0-6 0 3 3 0 0 0 6 0zM16.27 11l3.46 6H4.26l3.47-6"/>
-                            </svg>
-                            Much (> 5h/Week)
-                        </button>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Sleeping Quality:</label>
-                    <div class="button-group" id="sleepGroup">
-                        <button type="button" class="option-button" data-value="poor">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 12h20M12 2v20M22 18H2M22 6H2"/>
-                            </svg>
-                            Bad (< 5h)
-                        </button>
-                        <button type="button" class="option-button" data-value="average">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 12h20M12 2v20"/>
-                            </svg>
-                            Average (6h-8h)
-                        </button>
-                        <button type="button" class="option-button" data-value="good">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2v20M2 12h20"/>
-                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-                            </svg>
-                            Well (> 8h)
-                        </button>
-                    </div>
-                </div>
-                <button type="submit" id="generateButton">Genrate Supplement Plan</button>
-            </form>
-            <div id="loading">
-                <div class="modern-loader">
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                </div>
-                <p>Generating Supplement Plan...</p>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Entdecken Sie die Zukunft der personalisierten Nahrungsergänzung</h2>
+                <p>Unser KI-gesteuerter Supplement Planner analysiert Ihre individuellen Bedürfnisse und erstellt einen maßgeschneiderten Plan für optimale Gesundheit und Leistung.</p>
+                <a href="planner.html" class="cta-button">Jetzt testen</a>
             </div>
-            <div id="result"></div>
+        </section>
+
+        <section class="features container">
+            <div class="feature">
+                <h3>Personalisierte Empfehlungen</h3>
+                <p>Basierend auf Ihren einzigartigen Eigenschaften und Zielen erstellt unsere KI einen individuellen Supplementplan.</p>
+            </div>
+            <div class="feature">
+                <h3>Wissenschaftlich fundiert</h3>
+                <p>Alle Empfehlungen basieren auf den neuesten wissenschaftlichen Erkenntnissen und werden ständig aktualisiert.</p>
+            </div>
+            <div class="feature">
+                <h3>Einfach zu bedienen</h3>
+                <p>Beantworten Sie einige Fragen und erhalten Sie sofort Ihren personalisierten Supplementplan.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 KI Supplement Planner. Alle Rechte vorbehalten.</p>
         </div>
-    </div>
-    <script>
-        document.querySelectorAll('.button-group').forEach(group => {
-            group.addEventListener('click', function(e) {
-                const button = e.target.closest('.option-button');
-                if (button) {
-                    group.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('selected'));
-                    button.classList.add('selected');
-                }
-            });
-        });
-
-        document.getElementById('userForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('result').style.display = 'none';
-            
-            // Simuliere API-Aufruf und Verarbeitungszeit
-            setTimeout(generateSupplementPlan, 2000);
-        });
-
-        function generateSupplementPlan() {
-            const height = document.getElementById('height').value;
-            const weight = document.getElementById('weight').value;
-            const mood = document.querySelector('#moodGroup .selected')?.dataset.value;
-            const exercise = document.querySelector('#exerciseGroup .selected')?.dataset.value;
-            const sleep = document.querySelector('#sleepGroup .selected')?.dataset.value;
-
-            let plan = '<h2>Ihr personalisierter Supplement Plan</h2>';
-
-            // Basis-Supplemente für alle
-            plan += supplementItem('🍎', 'Multivitamin', `1 Tablette täglich`, 'Grundversorgung mit essentiellen Vitaminen und Mineralstoffen');
-
-            // Mood-basierte Empfehlungen
-            if (mood === 'stressed' || mood === 'tired') {
-                plan += supplementItem('🌿', 'Ashwagandha', `${calculateDosage(weight, 300, 600)} mg, morgens und abends`, 'Unterstützt die Stressresistenz und verbessert die Stimmung');
-                plan += supplementItem('🍵', 'L-Theanin', `${calculateDosage(weight, 100, 200)} mg täglich`, 'Fördert Entspannung ohne Müdigkeit');
-            }
-
-            if (mood === 'tired') {
-                plan += supplementItem('☕️', 'Koffein + L-Theanin', '100mg Koffein + 200mg L-Theanin, morgens', 'Verbessert Fokus und Energie ohne Nervosität');
-            }
-
-            if (mood === 'happy' || mood === 'energetic') {
-                plan += supplementItem('🌞', '5-HTP', `${calculateDosage(weight, 50, 100)} mg vor dem Schlafengehen`, 'Unterstützt die Serotonin-Produktion für ausgeglichene Stimmung');
-            }
-
-            // Aktivitäts-basierte Empfehlungen
-            if (exercise === 'high') {
-                const proteinDosage = Math.round(weight * 1.6);
-                plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich, verteilt auf 2-3 Portionen`, 'Unterstützt Muskelaufbau und Regeneration');
-                plan += supplementItem('🔋', 'Kreatin', '5g täglich', 'Verbessert Kraftleistung und Muskelmasse');
-                plan += supplementItem('🍋', 'BCAA', `${calculateDosage(weight, 5, 10)}g vor dem Training`, 'Reduziert Muskelermüdung und fördert die Erholung');
-            } else if (exercise === 'medium') {
-                const proteinDosage = Math.round(weight * 1.2);
-                plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich`, 'Unterstützt Muskelerhalt und Regeneration');
-            }
-
-            // Schlaf-basierte Empfehlungen
-            if (sleep === 'poor') {
-                plan += supplementItem('😴', 'Melatonin', '0.5-1mg 30 Minuten vor dem Schlafengehen', 'Reguliert den Schlaf-Wach-Rhythmus');
-                plan += supplementItem('🌙', 'Magnesium', `${calculateDosage(weight, 200, 400)}mg vor dem Schlafengehen`, 'Fördert Muskelentspannung und verbessert die Schlafqualität');
-            }
-
-            if (sleep === 'average' || sleep === 'poor') {
-                plan += supplementItem('🌿', 'Baldrian', '300-600mg 1 Stunde vor dem Schlafengehen', 'Natürliches Beruhigungsmittel, das die Schlafqualität verbessern kann');
-            }
-
-            // Gewichts- und größenbasierte Empfehlungen
-            const bmi = calculateBMI(weight, height);
-            if (bmi < 18.5) {
-                plan += supplementItem('🥛', 'Maltodextrin', `${calculateDosage(weight, 0.5, 1)}g täglich`, 'Kalorienreiche Kohlenhydratquelle zur Gewichtszunahme');
-            } else if (bmi > 25) {
-                plan += supplementItem('🍵', 'Grüner Tee Extrakt', '500mg täglich', 'Kann den Stoffwechsel unterstützen und die Fettverbrennung fördern');
-            }
-
-            // Vitamin D für alle, aber Dosis nach Gewicht
-            plan += supplementItem('☀️', 'Vitamin D3', `${calculateVitaminDDosage(weight)} IU täglich`, 'Unterstützt Immunsystem, Knochengesundheit und allgemeines Wohlbefinden');
-
-            plan += '<p><strong>Hinweis:</strong> Bitte besprechen Sie die Einnahme von Nahrungsergänzungsmitteln mit Ihrem Arzt, insbesondere wenn Sie Medikamente einnehmen oder gesundheitliche Probleme haben.</p>';
-
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('result').innerHTML = plan;
-            document.getElementById('result').style.display = 'block';
-        }
-
-        function supplementItem(icon, name, dosage, description) {
-            return `
-                <div class="supplement-item" onclick="showSupplementDetails('${name}', '${dosage}', '${description}')">
-                    <div class="supplement-icon">${icon}</div>
-                    <div class="supplement-info">
-                        <div class="supplement-name">${name}</div>
-                        <div class="supplement-dosage">${dosage}</div>
-                        <div class="supplement-description">${description}</div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showSupplementDetails(name, dosage, description) {
-            const detailsHtml = `
-                <div class="supplement-details">
-                    <h3>${name}</h3>
-                    <p><strong>Dosierung:</strong> ${dosage}</p>
-                    <p><strong>Beschreibung:</strong> ${description}</p>
-                    <p><strong>Vorteile:</strong> ${getSupplementBenefits(name)}</p>
-                    <p><strong>Mögliche Nebenwirkungen:</strong> ${getSupplementSideEffects(name)}</p>
-                    <button href"https://www.amazon.com" class="buy-button">Jetzt kaufen</button>
-                </div>
-            `;
-            
-            const detailsContainer = document.createElement('div');
-            detailsContainer.innerHTML = detailsHtml;
-            detailsContainer.className = 'supplement-details-container';
-            document.body.appendChild(detailsContainer);
-
-            detailsContainer.onclick = function(event) {
-                if (event.target === detailsContainer) {
-                    document.body.removeChild(detailsContainer);
-                }
-            };
-        }
-
-        function getSupplementBenefits(name) {
-            // Diese Funktion würde normalerweise Daten aus einer Datenbank abrufen
-            const benefits = {
-                'Multivitamin': 'Unterstützt allgemeine Gesundheit, füllt Nährstofflücken',
-                'Ashwagandha': 'Reduziert Stress, verbessert kognitive Funktionen',
-                'L-Theanin': 'Fördert Entspannung, verbessert Fokus',
-                'Koffein + L-Theanin': 'Steigert Energie und Konzentration',
-                '5-HTP': 'Verbessert Stimmung, unterstützt gesunden Schlaf',
-                'Whey Protein': 'Fördert Muskelaufbau und -regeneration',
-                'Kreatin': 'Steigert Kraft und Muskelmasse',
-                'BCAA': 'Reduziert Muskelermüdung, unterstützt Muskelaufbau',
-                'Melatonin': 'Verbessert Schlafqualität und -dauer',
-                'Magnesium': 'Unterstützt Muskel- und Nervenfunktion, fördert Schlaf',
-                'Baldrian': 'Fördert Entspannung und verbessert Schlafqualität',
-                'Maltodextrin': 'Liefert schnelle Energie, unterstützt Gewichtszunahme',
-                'Grüner Tee Extrakt': 'Fördert Stoffwechsel und Fettverbrennung',
-                'Vitamin D3': 'Stärkt Knochen, unterstützt Immunsystem und Stimmung'
-            };
-            return benefits[name] || 'Informationen nicht verfügbar';
-        }
-
-        function getSupplementSideEffects(name) {
-            // Diese Funktion würde normalerweise Daten aus einer Datenbank abrufen
-            const sideEffects = {
-                'Multivitamin': 'Übelkeit bei Einnahme auf leeren Magen',
-                'Ashwagandha': 'Magenbeschwerden, Durchfall',
-                'L-Theanin': 'Kopfschmerzen, Schläfrigkeit',
-                'Koffein + L-Theanin': 'Schlafstörungen bei später Einnahme',
-                '5-HTP': 'Übelkeit, Magenbeschwerden',
-                'Whey Protein': 'Blähungen, Verstopfung',
-                'Kreatin': 'Wassereinlagerungen, Magenbeschwerden',
-                'BCAA': 'Müdigkeit, Kopfschmerzen',
-                'Melatonin': 'Tagesmüdigkeit, Kopfschmerzen',
-                'Magnesium': 'Durchfall bei hoher Dosierung',
-                'Baldrian': 'Kopfschmerzen, Schläfrigkeit',
-                'Maltodextrin': 'Blähungen, Gewichtszunahme',
-                'Grüner Tee Extrakt': 'Schlafstörungen, Nervosität',
-                'Vitamin D3': 'Übelkeit, Nierenprobleme bei Überdosierung'
-            };
-            return sideEffects[name] || 'Informationen nicht verfügbar';
-        }
-
-        
-
-        function calculateDosage(weight, minDose, maxDose) {
-            return Math.round((weight / 70) * (maxDose - minDose) + minDose);
-        }
-
-        function calculateVitaminDDosage(weight) {
-            return Math.round(weight * 35);
-        }
-
-        function calculateBMI(weight, height) {
-            return weight / ((height / 100) ** 2);
-        }
-    </script>
+    </footer>
 </body>
 </html>
