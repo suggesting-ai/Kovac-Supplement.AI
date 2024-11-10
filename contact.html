@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI Supplement Planner</title>
+    <title>Kontakt - KI Supplement Planner</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -89,82 +89,82 @@
             text-decoration: none;
             padding: 5px 10px;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: background
+            color 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .menu a:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
 
+        main {
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+
         h1 {
-            color: var(--text-color);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero {
-            padding: 60px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h2 {
             color: var(--primary-color);
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(90deg, #21b09d 0%, var(--secondary-color) 100%);
-            color: var(--text-color);
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.4);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 255, 157, 0.6);
-        }
-
-        .features {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .feature {
-            flex-basis: calc(33.333% - 20px);
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
             text-align: center;
-            transition: all 0.3s ease;
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 32px 0 rgba(31, 135, 104, 0.37);
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .feature h3 {
+        label {
+            display: block;
+            margin-bottom: 5px;
             color: var(--primary-color);
-            margin-bottom: 10px;
+        }
+
+        input, textarea {
+            width: 95%;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            color: var(--text-color);
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: linear-gradient(90deg, #19403b 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            padding: 10px 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.4);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 20px 0;
         }
 
         .futuristic-shape {
@@ -178,21 +178,10 @@
             z-index: -1;
         }
 
-        .shape1 { top: 10%; left: 5%; }
-        .shape2 { bottom: 20%; right: 10%; }
-
-        footer {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            text-align: center;
-            padding: 20px 0;
-            margin-top: auto;
-        }
+        .shape1 { top: 20%; left: 5%; }
+        .shape2 { bottom: 10%; right: 5%; }
 
         @media (max-width: 768px) {
-            .feature {
-                flex-basis: calc(50% - 20px);
-            }
             .menu {
                 display: none;
             }
@@ -203,29 +192,18 @@
                 cursor: pointer;
             }
         }
-
-        @media (max-width: 480px) {
-            .feature {
-                flex-basis: 100%;
-            }
-            .hero h2 {
-                font-size: 2em;
-            }
-            .hero p {
-                font-size: 1em;
-            }
-        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">AI Supplement Planner</a>
+                <a href="index.html" class="logo">KI Supplement Planner</a>
                 <div class="menu">
-                    <a href="features.html"><strong>Features</strong></a>
-                    <a href="about.html"><strong>About Us</strong></a>
-                    <a href="contact.html"><strong>Contact</strong></a>
+                    <a href="index.html">Home</a>
+                    <a href="features.html">Features</a>
+                    <a href="about.html">Über uns</a>
+                    <a href="contact.html">Kontakt</a>
                 </div>
                 <div class="menu-toggle">☰</div>
             </nav>
@@ -233,30 +211,28 @@
     </header>
 
     <main>
-        <section class="hero">
-            <div class="futuristic-shape shape1"></div>
-            <div class="futuristic-shape shape2"></div>
-            <div class="container">
-                <h2>Die Zukunft der personalisierten Nahrungsergänzung</h2>
-                <p>Unser KI-gesteuerter Supplement Planner analysiert Ihre individuellen Bedürfnisse und erstellt einen maßgeschneiderten Plan für optimale Gesundheit und Leistung.</p>
-                <a href="planner2.html" class="cta-button">Try Supplement-Planner ↗</a>
+        <div class="container">
+            <h1>Kontaktieren Sie uns</h1>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Nachricht:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit">Nachricht senden</button>
+                </form>
             </div>
-        </section>
-
-        <section id="features" class="features container">
-            <div class="feature">
-                <h3>Personalisierte Empfehlungen</h3>
-                <p>Basierend auf Ihren einzigartigen Eigenschaften und Zielen erstellt unsere KI einen individuellen Supplementplan, der perfekt auf Sie abgestimmt ist.</p>
-            </div>
-            <div class="feature">
-                <h3>Wissenschaftlich fundiert</h3>
-                <p>Alle Empfehlungen basieren auf den neuesten wissenschaftlichen Erkenntnissen und werden kontinuierlich aktualisiert, um Ihnen stets die bestmögliche Beratung zu bieten.</p>
-            </div>
-            <div class="feature">
-                <h3>Einfach zu bedienen</h3>
-                <p>Beantworten Sie einige kurze Fragen zu Ihrem Lebensstil und Ihren Zielen, und erhalten Sie sofort Ihren maßgeschneiderten Supplementplan - einfach und effizient.</p>
-            </div>
-        </section>
+        </div>
+        <div class="futuristic-shape shape1"></div>
+        <div class="futuristic-shape shape2"></div>
     </main>
 
     <footer>
@@ -269,6 +245,11 @@
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.menu').style.display = 
                 document.querySelector('.menu').style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.');
         });
     </script>
 </body>

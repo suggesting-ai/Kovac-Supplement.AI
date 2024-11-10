@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI Supplement Planner</title>
+    <title>Über uns - KI Supplement Planner</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -96,75 +96,58 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
 
+        main {
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+
         h1 {
-            color: var(--text-color);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero {
-            padding: 60px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h2 {
             color: var(--primary-color);
-            font-size: 2.5em;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        .hero p {
-            font-size: 1.2em;
+        .about-content {
             max-width: 800px;
-            margin: 0 auto 30px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(90deg, #21b09d 0%, var(--secondary-color) 100%);
-            color: var(--text-color);
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.4);
+        .about-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 255, 157, 0.6);
-        }
-
-        .features {
+        .team-members {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             margin-top: 40px;
         }
 
-        .feature {
-            flex-basis: calc(33.333% - 20px);
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+        .team-member {
             text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 30px;
         }
 
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 32px 0 rgba(31, 135, 104, 0.37);
-        }
-
-        .feature h3 {
-            color: var(--primary-color);
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
             margin-bottom: 10px;
+            border: 2px solid var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 20px 0;
         }
 
         .futuristic-shape {
@@ -178,21 +161,26 @@
             z-index: -1;
         }
 
-        .shape1 { top: 10%; left: 5%; }
-        .shape2 { bottom: 20%; right: 10%; }
+        .shape1 { top: 20%; left: 5%; }
+        .shape2 { bottom: 10%; right: 5%; }
 
-        footer {
+        .menu-mobile {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
             background-color: var(--secondary-color);
-            color: var(--text-color);
+            padding: 10px;
+        }
+
+        .menu-mobile a {
+            padding: 10px;
             text-align: center;
-            padding: 20px 0;
-            margin-top: auto;
         }
 
         @media (max-width: 768px) {
-            .feature {
-                flex-basis: calc(50% - 20px);
-            }
             .menu {
                 display: none;
             }
@@ -202,17 +190,8 @@
                 color: var(--text-color);
                 cursor: pointer;
             }
-        }
-
-        @media (max-width: 480px) {
-            .feature {
-                flex-basis: 100%;
-            }
-            .hero h2 {
-                font-size: 2em;
-            }
-            .hero p {
-                font-size: 1em;
+            .menu-mobile.show {
+                display: flex;
             }
         }
     </style>
@@ -221,42 +200,58 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">AI Supplement Planner</a>
+                <a href="index.html" class="logo">KI Supplement Planner</a>
                 <div class="menu">
-                    <a href="features.html"><strong>Features</strong></a>
-                    <a href="about.html"><strong>About Us</strong></a>
-                    <a href="contact.html"><strong>Contact</strong></a>
+                    <a href="index.html">Home</a>
+                    <a href="features.html">Features</a>
+                    <a href="about.html">Über uns</a>
+                    <a href="contact.html">Kontakt</a>
                 </div>
                 <div class="menu-toggle">☰</div>
             </nav>
+            <div class="menu-mobile">
+                <a href="index.html">Home</a>
+                <a href="features.html">Features</a>
+                <a href="about.html">Über uns</a>
+                <a href="contact.html">Kontakt</a>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="futuristic-shape shape1"></div>
-            <div class="futuristic-shape shape2"></div>
-            <div class="container">
-                <h2>Die Zukunft der personalisierten Nahrungsergänzung</h2>
-                <p>Unser KI-gesteuerter Supplement Planner analysiert Ihre individuellen Bedürfnisse und erstellt einen maßgeschneiderten Plan für optimale Gesundheit und Leistung.</p>
-                <a href="planner2.html" class="cta-button">Try Supplement-Planner ↗</a>
+        <div class="container">
+            <h1>Über uns</h1>
+            <div class="about-content">
+                <p>
+                    KI Supplement Planner wurde von einem Team leidenschaftlicher Experten gegründet, die die Kraft der künstlichen Intelligenz nutzen wollen, um personalisierte Ernährung und Gesundheit zu revolutionieren.
+                </p>
+                <p>
+                    Unsere Mission ist es, jedem Menschen den Zugang zu maßgeschneiderten, wissenschaftlich fundierten Nahrungsergänzungsplänen zu ermöglichen. Wir glauben, dass jeder Körper einzigartig ist und individuelle Bedürfnisse hat.
+                </p>
+                <p>
+                    Mit unserem innovativen KI-Algorithmus analysieren wir Ihre persönlichen Daten, Lebensstil und Ziele, um einen optimalen Supplementplan zu erstellen, der Ihre Gesundheit und Leistungsfähigkeit maximiert.
+                </p>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="/placeholder.svg?height=150&width=150" alt="Dr. Anna Schmidt">
+                        <h3>Dr. Anna Schmidt</h3>
+                        <p>Ernährungswissenschaftlerin</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/placeholder.svg?height=150&width=150" alt="Max Müller">
+                        <h3>Max Müller</h3>
+                        <p>KI-Spezialist</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/placeholder.svg?height=150&width=150" alt="Lisa Weber">
+                        <h3>Lisa Weber</h3>
+                        <p>Gesundheitscoach</p>
+                    </div>
+                </div>
             </div>
-        </section>
-
-        <section id="features" class="features container">
-            <div class="feature">
-                <h3>Personalisierte Empfehlungen</h3>
-                <p>Basierend auf Ihren einzigartigen Eigenschaften und Zielen erstellt unsere KI einen individuellen Supplementplan, der perfekt auf Sie abgestimmt ist.</p>
-            </div>
-            <div class="feature">
-                <h3>Wissenschaftlich fundiert</h3>
-                <p>Alle Empfehlungen basieren auf den neuesten wissenschaftlichen Erkenntnissen und werden kontinuierlich aktualisiert, um Ihnen stets die bestmögliche Beratung zu bieten.</p>
-            </div>
-            <div class="feature">
-                <h3>Einfach zu bedienen</h3>
-                <p>Beantworten Sie einige kurze Fragen zu Ihrem Lebensstil und Ihren Zielen, und erhalten Sie sofort Ihren maßgeschneiderten Supplementplan - einfach und effizient.</p>
-            </div>
-        </section>
+        </div>
+        <div class="futuristic-shape shape1"></div>
+        <div class="futuristic-shape shape2"></div>
     </main>
 
     <footer>
@@ -267,8 +262,7 @@
 
     <script>
         document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.menu').style.display = 
-                document.querySelector('.menu').style.display === 'flex' ? 'none' : 'flex';
+            document.querySelector('.menu-mobile').classList.toggle('show');
         });
     </script>
 </body>
