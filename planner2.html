@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kovac AI Supplement Planner</title>
+    <title>AI Supplement Planner</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -193,16 +193,17 @@
             50% { transform: scale(1); opacity: 1; }
         }
 
-
         #result {
             margin-top: 20px;
             padding: 15px;
             background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
+            border-radius: 9px;
             display: none;
+            width: 95%;
         }
 
         .supplement-item {
+            width: 95%;
             display: flex;
             align-items: center;
             margin-bottom: 15px;
@@ -210,7 +211,7 @@
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             transition: all 0.3s ease;
-            cursor: pointer; /* Added cursor pointer */
+            cursor: pointer;
         }
 
         .supplement-item:hover {
@@ -265,7 +266,7 @@
             padding: 20px;
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
+            max-width: 480px;
         }
 
         .buy-button {
@@ -292,11 +293,11 @@
         <div class="form-container">
             <form id="userForm">
                 <div class="input-group">
-                    <label for="height">Größe (cm):</label>
+                    <label for="height">Height (cm):</label>
                     <input type="number" id="height" class="organic-input" required min="100" max="250" step="1">
                 </div>
                 <div class="input-group">
-                    <label for="weight">Gewicht (kg):</label>
+                    <label for="weight">Weight (kg):</label>
                     <input type="number" id="weight" class="organic-input" required min="30" max="250" step="0.1">
                 </div>
                 <div class="input-group">
@@ -321,7 +322,7 @@
                                 <line x1="14.31" y1="16" x2="2.83" y2="16"/>
                                 <line x1="16.62" y1="12" x2="10.88" y2="21.94"/>
                             </svg>
-                            Gestresst
+                            Stressed
                         </button>
                         <button type="button" class="option-button" data-value="tired">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -330,7 +331,7 @@
                                 <line x1="9" y1="9" x2="9.01" y2="9"/>
                                 <line x1="15" y1="9" x2="15.01" y2="9"/>
                             </svg>
-                            Müde
+                            Tired
                         </button>
                         <button type="button" class="option-button" data-value="energetic">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -340,7 +341,7 @@
                                 <line x1="15" y1="9" x2="15.01" y2="9"/>
                                 <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>
                             </svg>
-                            Energiegeladen
+                            Energized
                         </button>
                     </div>
                 </div>
@@ -402,7 +403,7 @@
                         </button>
                     </div>
                 </div>
-                <button type="submit" id="generateButton">Genrate Supplement Plan</button>
+                <button type="submit" id="generateButton">Generate Supplement Plan</button>
             </form>
             <div id="loading">
                 <div class="modern-loader">
@@ -431,7 +432,6 @@
             document.getElementById('loading').style.display = 'block';
             document.getElementById('result').style.display = 'none';
             
-            // Simuliere API-Aufruf und Verarbeitungszeit
             setTimeout(generateSupplementPlan, 2000);
         });
 
@@ -444,54 +444,124 @@
 
             let plan = '<h2>Ihr personalisierter Supplement Plan</h2>';
 
-            // Basis-Supplemente für alle
             plan += supplementItem('🍎', 'Multivitamin', `1 Tablette täglich`, 'Grundversorgung mit essentiellen Vitaminen und Mineralstoffen');
+plan += supplementItem('🧴', 'Omega-3 Fischöl', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Fördert Herz- und Gehirngesundheit');
+plan += supplementItem('🥬', 'Spirulina', `${calculateDosage(weight, 3000, 5000)} mg täglich`, 'Nährstoffreiche Alge mit antioxidativer Wirkung');
+plan += supplementItem('🧄', 'Vitamin C', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Unterstützt das Immunsystem und Zellgesundheit');
+plan += supplementItem('🥕', 'Vitamin D3', `${calculateDosage(weight, 1000, 4000)} IU täglich`, 'Stärkt die Knochen und das Immunsystem');
+plan += supplementItem('🍂', 'Zink', `${calculateDosage(weight, 10, 30)} mg täglich`, 'Unterstützt das Immunsystem und die Zellteilung');
+plan += supplementItem('🍊', 'Vitamin B12', '500 mcg täglich', 'Wichtig für Energie und Nervensystem');
+plan += supplementItem('🥄', 'Calcium', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Unterstützt Knochen- und Zahngesundheit');
+plan += supplementItem('🌻', 'Eisen', `${calculateDosage(weight, 10, 18)} mg täglich`, 'Unterstützt die Blutbildung und Sauerstoffversorgung');
+plan += supplementItem('🧂', 'Selen', `${calculateDosage(weight, 50, 200)} mcg täglich`, 'Antioxidativ und wichtig für die Schilddrüse');
+plan += supplementItem('🌰', 'Kupfer', `${calculateDosage(weight, 1, 3)} mg täglich`, 'Wichtig für Enzyme und das Immunsystem');
+plan += supplementItem('🥛', 'Kalium', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Reguliert den Blutdruck und unterstützt Muskelgesundheit');
+plan += supplementItem('🌱', 'Cholin', `${calculateDosage(weight, 250, 500)} mg täglich`, 'Fördert die Gehirnfunktion und Lebergesundheit');
+plan += supplementItem('🍅', 'Lycopin', `${calculateDosage(weight, 5, 10)} mg täglich`, 'Antioxidans, unterstützt Herzgesundheit');
+plan += supplementItem('🍑', 'Beta-Carotin', `${calculateDosage(weight, 2000, 5000)} IU täglich`, 'Vorstufe von Vitamin A, unterstützt Augen- und Hautgesundheit');
 
-            // Mood-basierte Empfehlungen
-            if (mood === 'stressed' || mood === 'tired') {
-                plan += supplementItem('🌿', 'Ashwagandha', `${calculateDosage(weight, 300, 600)} mg, morgens und abends`, 'Unterstützt die Stressresistenz und verbessert die Stimmung');
-                plan += supplementItem('🍵', 'L-Theanin', `${calculateDosage(weight, 100, 200)} mg täglich`, 'Fördert Entspannung ohne Müdigkeit');
-            }
+if (mood === 'stressed' || mood === 'tired') {
+    plan += supplementItem('🌿', 'Ashwagandha', `${calculateDosage(weight, 300, 600)} mg, morgens und abends`, 'Unterstützt die Stressresistenz und verbessert die Stimmung');
+    plan += supplementItem('🍵', 'L-Theanin', `${calculateDosage(weight, 100, 200)} mg täglich`, 'Fördert Entspannung ohne Müdigkeit');
+    plan += supplementItem('🌰', 'Rhodiola Rosea', `${calculateDosage(weight, 200, 400)} mg morgens`, 'Hilft gegen Stress und Müdigkeit');
+    plan += supplementItem('🌸', 'B-Vitamin Komplex', '1 Tablette täglich', 'Fördert Energie und Nervenstärke');
+    plan += supplementItem('🍃', 'Holy Basil', `${calculateDosage(weight, 300, 500)} mg täglich`, 'Hilft gegen Stress und Unruhe');
+    plan += supplementItem('🍄', 'Reishi', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Hilft bei Stress und unterstützt die Immunabwehr');
+    plan += supplementItem('🥥', 'L-Tryptophan', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Hilft bei der Serotoninproduktion und Stimmung');
+    plan += supplementItem('🌻', 'GABA', '500 mg vor dem Schlafengehen', 'Fördert Ruhe und Entspannung');
+    plan += supplementItem('🌼', 'Lavendelöl', `${calculateDosage(weight, 80, 160)} mg täglich`, 'Fördert Entspannung');
+    plan += supplementItem('🥒', 'Magnolia Rinde', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Hilft gegen Stress');
+    plan += supplementItem('🍫', 'Dunkle Schokolade (70% Kakao)', '20-40g täglich', 'Fördert Glücksgefühle durch Serotonin');
+    plan += supplementItem('🍎', 'Apfelessig', '1 EL täglich in Wasser', 'Fördert Verdauung und reguliert Blutzucker');
+    plan += supplementItem('🍑', 'Vitamin B5', `${calculateDosage(weight, 5, 10)} mg täglich`, 'Hilft bei der Stressbewältigung');
+    plan += supplementItem('🌰', 'Inositol', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Fördert Beruhigung bei Stress');
+    plan += supplementItem('🍯', 'Glycin', `${calculateDosage(weight, 3000, 5000)} mg vor dem Schlafengehen`, 'Fördert Tiefschlaf und Entspannung');
+}
 
-            if (mood === 'tired') {
-                plan += supplementItem('☕️', 'Koffein + L-Theanin', '100mg Koffein + 200mg L-Theanin, morgens', 'Verbessert Fokus und Energie ohne Nervosität');
-            }
+if (mood === 'tired') {
+    plan += supplementItem('☕️', 'Koffein + L-Theanin', '100mg Koffein + 200mg L-Theanin, morgens', 'Verbessert Fokus und Energie ohne Nervosität');
+    plan += supplementItem('💧', 'CoQ10', `${calculateDosage(weight, 100, 200)} mg morgens`, 'Unterstützt Energieniveau und Herzgesundheit');
+    plan += supplementItem('🌿', 'Cordyceps', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Steigert Energie und Ausdauer');
+    plan += supplementItem('🍄', 'Reishi Pilz', `${calculateDosage(weight, 300, 500)} mg täglich`, 'Beruhigend und ausgleichend');
+    plan += supplementItem('🥭', 'Acetyl-L-Carnitin', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Fördert Energieproduktion und Gehirnfunktion');
+    plan += supplementItem('🥤', 'Eleutherococcus', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Adaptogen zur Förderung der Energie');
+    plan += supplementItem('🥥', 'Vitamin B6', `${calculateDosage(weight, 50, 100)} mg täglich`, 'Fördert den Energiehaushalt');
+    plan += supplementItem('🍓', 'Panax Ginseng', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Fördert Vitalität und Fokus');
+    plan += supplementItem('🌞', 'NAD+', `${calculateDosage(weight, 200, 300)} mg täglich`, 'Unterstützt Zellenergie und Vitalität');
+    plan += supplementItem('🥜', 'D-Ribose', `${calculateDosage(weight, 5, 10)} g täglich`, 'Hilft bei der ATP-Produktion zur Energieversorgung');
+    plan += supplementItem('🍌', 'Biotin', `${calculateDosage(weight, 30, 100)} mcg täglich`, 'Fördert Energie und gesunde Zellfunktionen');
+    plan += supplementItem('🍐', 'Moringa', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Reich an Nährstoffen zur Steigerung der Energie');
+    plan += supplementItem('🥬', 'Chlorella', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Entgiftend und energiefördernd');
+    plan += supplementItem('🌰', 'Macadamiaöl', `${calculateDosage(weight, 10, 20)} ml täglich`, 'Liefert Energie und gesunde Fette');
+}
 
-            if (mood === 'happy' || mood === 'energetic') {
-                plan += supplementItem('🌞', '5-HTP', `${calculateDosage(weight, 50, 100)} mg vor dem Schlafengehen`, 'Unterstützt die Serotonin-Produktion für ausgeglichene Stimmung');
-            }
+if (mood === 'happy' || mood === 'energetic') {
+    plan += supplementItem('🌞', '5-HTP', `${calculateDosage(weight, 50, 100)} mg vor dem Schlafengehen`, 'Unterstützt die Serotonin-Produktion für ausgeglichene Stimmung');
+    plan += supplementItem('🍫', 'L-Tyrosin', `${calculateDosage(weight, 500, 1000)} mg vor dem Training`, 'Fördert Wachsamkeit und Motivation');
+    plan += supplementItem('🌅', 'Maca', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Unterstützt Stimmung und Energie');
+    plan += supplementItem('🍇', 'Resveratrol', '100 mg täglich', 'Antioxidativ und unterstützt gesunde Zellalterung');
+    plan += supplementItem('🍋', 'Vitamin B6', `${calculateDosage(weight, 50, 100)} mg täglich`, 'Fördert Energie und gute Laune');
+    plan += supplementItem('🍓', 'B-Vitamine Komplex', '1 Tablette täglich', 'Fördert Nerven und gute Laune');
+    plan += supplementItem('🍍', 'Curcumin', '500 mg täglich', 'Antioxidativ und unterstützt Stimmung');
+    plan += supplementItem('🌰', 'N-Acetylcystein (NAC)', '600 mg täglich', 'Schützt die Zellen und unterstützt positive Stimmung');
+    plan += supplementItem('🥤', 'Eleutherococcus', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Hilft, die Energie zu steigern');
+}
 
-            // Aktivitäts-basierte Empfehlungen
-            if (exercise === 'high') {
-                const proteinDosage = Math.round(weight * 1.6);
-                plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich, verteilt auf 2-3 Portionen`, 'Unterstützt Muskelaufbau und Regeneration');
-                plan += supplementItem('🔋', 'Kreatin', '5g täglich', 'Verbessert Kraftleistung und Muskelmasse');
-                plan += supplementItem('🍋', 'BCAA', `${calculateDosage(weight, 5, 10)}g vor dem Training`, 'Reduziert Muskelermüdung und fördert die Erholung');
-            } else if (exercise === 'medium') {
-                const proteinDosage = Math.round(weight * 1.2);
-                plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich`, 'Unterstützt Muskelerhalt und Regeneration');
-            }
+if (exercise === 'high') {
+    const proteinDosage = Math.round(weight * 1.6);
+    plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich, verteilt auf 2-3 Portionen`, 'Unterstützt Muskelaufbau und Regeneration');
+    plan += supplementItem('🔋', 'Kreatin', '5g täglich', 'Verbessert Kraftleistung und Muskelmasse');
+    plan += supplementItem('🍋', 'BCAA', `${calculateDosage(weight, 5, 10)}g vor dem Training`, 'Reduziert Muskelermüdung und fördert die Erholung');
+    plan += supplementItem('🍍', 'Glutamin', '5g nach dem Training', 'Hilft bei der Regeneration der Muskeln');
+    plan += supplementItem('🥄', 'Beta-Alanin', `${calculateDosage(weight, 2, 5)}g täglich`, 'Reduziert Muskelermüdung bei intensivem Training');
+    plan += supplementItem('🥥', 'L-Citrullin', `${calculateDosage(weight, 5, 8)}g vor dem Training`, 'Fördert Durchblutung und Ausdauer');
+    plan += supplementItem('🍈', 'Taurin', `${calculateDosage(weight, 500, 1000)} mg vor dem Training`, 'Reduziert Muskelermüdung und verbessert die Leistung');
+}
 
-            // Schlaf-basierte Empfehlungen
-            if (sleep === 'poor') {
-                plan += supplementItem('😴', 'Melatonin', '0.5-1mg 30 Minuten vor dem Schlafengehen', 'Reguliert den Schlaf-Wach-Rhythmus');
-                plan += supplementItem('🌙', 'Magnesium', `${calculateDosage(weight, 200, 400)}mg vor dem Schlafengehen`, 'Fördert Muskelentspannung und verbessert die Schlafqualität');
-            }
+if (exercise === 'medium') {
+    const proteinDosage = Math.round(weight * 1.2);
+    plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich`, 'Unterstützt Muskelerhalt und Regeneration');
+    plan += supplementItem('🥛', 'Casein Protein', '30g vor dem Schlafengehen', 'Langsame Proteinversorgung für über Nacht');
+    plan += supplementItem('🍎', 'Rote-Bete Extrakt', '500mg täglich', 'Unterstützt Blutfluss und Sauerstoffversorgung');
+    plan += supplementItem('🥬', 'Spirulina', `${calculateDosage(weight, 3000, 5000)} mg täglich`, 'Enthält essentielle Aminosäuren');
+}
 
-            if (sleep === 'average' || sleep === 'poor') {
-                plan += supplementItem('🌿', 'Baldrian', '300-600mg 1 Stunde vor dem Schlafengehen', 'Natürliches Beruhigungsmittel, das die Schlafqualität verbessern kann');
-            }
+if (sleep === 'poor') {
+    plan += supplementItem('😴', 'Melatonin', '0.5-1mg 30 Minuten vor dem Schlafengehen', 'Reguliert den Schlaf-Wach-Rhythmus');
+    plan += supplementItem('🌙', 'Magnesium', `${calculateDosage(weight, 200, 400)}mg vor dem Schlafengehen`, 'Fördert Muskelentspannung und verbessert die Schlafqualität');
+    plan += supplementItem('🍯', 'GABA', '250-500mg 1 Stunde vor dem Schlafengehen', 'Fördert Entspannung und erholsamen Schlaf');
+    plan += supplementItem('🌾', 'L-Glycin', '3g vor dem Schlafengehen', 'Fördert Tiefschlaf und Erholung');
+    plan += supplementItem('🍀', 'Lavendelöl Kapseln', '80mg täglich', 'Fördert Entspannung und beruhigt vor dem Schlaf');
+}
 
-            // Gewichts- und größenbasierte Empfehlungen
-            const bmi = calculateBMI(weight, height);
-            if (bmi < 18.5) {
-                plan += supplementItem('🥛', 'Maltodextrin', `${calculateDosage(weight, 0.5, 1)}g täglich`, 'Kalorienreiche Kohlenhydratquelle zur Gewichtszunahme');
-            } else if (bmi > 25) {
-                plan += supplementItem('🍵', 'Grüner Tee Extrakt', '500mg täglich', 'Kann den Stoffwechsel unterstützen und die Fettverbrennung fördern');
-            }
+if (sleep === 'average' || sleep === 'poor') {
+    plan += supplementItem('🌿', 'Baldrian', '300-600mg 1 Stunde vor dem Schlafengehen', 'Natürliches Beruhigungsmittel, das die Schlafqualität verbessern kann');
+    plan += supplementItem('🌸', 'Passionsblume', `${calculateDosage(weight, 200, 400)} mg vor dem Schlafengehen`, 'Hilft bei Schlafproblemen und fördert Entspannung');
+    plan += supplementItem('🍋', 'Zitronenmelisse', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Fördert Entspannung und verbessert die Schlafqualität');
+    plan += supplementItem('🌷', 'Hopfenextrakt', '200 mg täglich', 'Hilft bei Schlafstörungen');
+}
 
-            // Vitamin D für alle, aber Dosis nach Gewicht
+const bmi = calculateBMI(weight, height);
+if (bmi < 18.5) {
+    plan += supplementItem('🥛', 'Maltodextrin', `${calculateDosage(weight, 0.5, 1)}g täglich`, 'Kalorienreiche Kohlenhydratquelle zur Gewichtszunahme');
+    plan += supplementItem('🍌', 'Ginseng', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Fördert Appetit und Energie');
+    plan += supplementItem('🍇', 'Schwarzkümmelöl', '1 Esslöffel täglich', 'Kalorienreich und entzündungshemmend');
+    plan += supplementItem('🍠', 'Yamswurzel Extrakt', '300 mg täglich', 'Fördert gesunde Gewichtszunahme');
+    plan += supplementItem('🥜', 'Erdnussbutter', '2 Esslöffel täglich', 'Kalorienreiche Protein- und Fettquelle');
+}
+
+if (bmi > 25) {
+    plan += supplementItem('🍵', 'Grüner Tee Extrakt', '500mg täglich', 'Kann den Stoffwechsel unterstützen und die Fettverbrennung fördern');
+    plan += supplementItem('🔥', 'Garcinia Cambogia', '500mg vor den Mahlzeiten', 'Unterstützt den Fettabbau und reduziert den Appetit');
+    plan += supplementItem('🥒', 'Apfelessig-Kapseln', '1-2 Kapseln vor Mahlzeiten', 'Kann die Fettverbrennung fördern');
+    plan += supplementItem('🍈', 'CLA (konjugierte Linolsäure)', `${calculateDosage(weight, 1000, 3000)} mg täglich`, 'Hilft bei der Körperfettreduktion');
+    plan += supplementItem('🥭', 'Chitosan', `${calculateDosage(weight, 1000, 2000)} mg vor Mahlzeiten`, 'Reduziert Fettaufnahme aus Nahrung');
+}
+
+
             plan += supplementItem('☀️', 'Vitamin D3', `${calculateVitaminDDosage(weight)} IU täglich`, 'Unterstützt Immunsystem, Knochengesundheit und allgemeines Wohlbefinden');
+            plan += supplementItem('🦴', 'Calcium', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Fördert starke Knochen und Zähne');
+            plan += supplementItem('🍀', 'Vitamin K2', '100mcg täglich', 'Unterstützt Knochengesundheit und Herz-Kreislauf-System');
 
             plan += '<p><strong>Hinweis:</strong> Bitte besprechen Sie die Einnahme von Nahrungsergänzungsmitteln mit Ihrem Arzt, insbesondere wenn Sie Medikamente einnehmen oder gesundheitliche Probleme haben.</p>';
 
@@ -499,7 +569,7 @@
             document.getElementById('result').innerHTML = plan;
             document.getElementById('result').style.display = 'block';
         }
-
+  
         function supplementItem(icon, name, dosage, description) {
             return `
                 <div class="supplement-item" onclick="showSupplementDetails('${name}', '${dosage}', '${description}')">
@@ -521,7 +591,7 @@
                     <p><strong>Beschreibung:</strong> ${description}</p>
                     <p><strong>Vorteile:</strong> ${getSupplementBenefits(name)}</p>
                     <p><strong>Mögliche Nebenwirkungen:</strong> ${getSupplementSideEffects(name)}</p>
-                    <button href"https://www.amazon.com" class="buy-button">Jetzt kaufen</button>
+                    <button onclick="window.open('https://www.amazon.com', '_blank')" class="buy-button">Jetzt kaufen</button>
                 </div>
             `;
             
@@ -538,7 +608,6 @@
         }
 
         function getSupplementBenefits(name) {
-            // Diese Funktion würde normalerweise Daten aus einer Datenbank abrufen
             const benefits = {
                 'Multivitamin': 'Unterstützt allgemeine Gesundheit, füllt Nährstofflücken',
                 'Ashwagandha': 'Reduziert Stress, verbessert kognitive Funktionen',
@@ -559,7 +628,6 @@
         }
 
         function getSupplementSideEffects(name) {
-            // Diese Funktion würde normalerweise Daten aus einer Datenbank abrufen
             const sideEffects = {
                 'Multivitamin': 'Übelkeit bei Einnahme auf leeren Magen',
                 'Ashwagandha': 'Magenbeschwerden, Durchfall',
@@ -578,8 +646,6 @@
             };
             return sideEffects[name] || 'Informationen nicht verfügbar';
         }
-
-        
 
         function calculateDosage(weight, minDose, maxDose) {
             return Math.round((weight / 70) * (maxDose - minDose) + minDose);
