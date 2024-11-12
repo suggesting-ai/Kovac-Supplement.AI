@@ -300,21 +300,6 @@
             margin-top: 10px;
             font-weight: bolder;
         }
-
-        .time-category {
-            margin-top: 20px;
-            padding: 10px;
-            background: none;
-            border-radius: 5px;
-        }
-
-        .time-category h3 {
-            margin-top: 0;
-            color: white;
-            font-size: 21px;
-            
-            margin-bottom: 22px;
-        }
     </style>
 </head>
 <body>
@@ -471,180 +456,139 @@
         });
 
         function generateSupplementPlan() {
-    const height = document.getElementById('height').value;
-    const weight = document.getElementById('weight').value;
-    const mood = document.querySelector('#moodGroup .selected')?.dataset.value;
-    const exercise = document.querySelector('#exerciseGroup .selected')?.dataset.value;
-    const sleep = document.querySelector('#sleepGroup .selected')?.dataset.value;
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const mood = document.querySelector('#moodGroup .selected')?.dataset.value;
+            const exercise = document.querySelector('#exerciseGroup .selected')?.dataset.value;
+            const sleep = document.querySelector('#sleepGroup .selected')?.dataset.value;
 
-    // Erstelle Arrays für Supplements nach Einnahmezeit
-    let morningSupplements = [];
-    let middaySupplements = [];
-    let eveningSupplements = [];
+            let plan = '<h2>Ihr personalisierter Supplement Plan</h2>';
 
-    // Füge Supplemente zur passenden Einnahmezeit hinzu
-    function addSupplement(icon, name, dosage, description, timeOfDay) {
-        const supplement = supplementItem(icon, name, dosage, description);
-        switch (timeOfDay) {
-            case 'morning':
-                morningSupplements.push(supplement);
-                break;
-            case 'midday':
-                middaySupplements.push(supplement);
-                break;
-            case 'evening':
-                eveningSupplements.push(supplement);
-                break;
-        }
-    }
+            plan += supplementItem('🍎', 'Multivitamin', `1 Tablette täglich`, 'Grundversorgung mit essentiellen Vitaminen und Mineralstoffen');
+plan += supplementItem('🧴', 'Omega-3 Fischöl', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Fördert Herz- und Gehirngesundheit');
+plan += supplementItem('🥬', 'Spirulina', `${calculateDosage(weight, 3000, 5000)} mg täglich`, 'Nährstoffreiche Alge mit antioxidativer Wirkung');
+plan += supplementItem('🧄', 'Vitamin C', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Unterstützt das Immunsystem und Zellgesundheit');
+plan += supplementItem('🥕', 'Vitamin D3', `${calculateDosage(weight, 1000, 4000)} IU täglich`, 'Stärkt die Knochen und das Immunsystem');
+plan += supplementItem('🍂', 'Zink', `${calculateDosage(weight, 10, 30)} mg täglich`, 'Unterstützt das Immunsystem und die Zellteilung');
+plan += supplementItem('🍊', 'Vitamin B12', '500 mcg täglich', 'Wichtig für Energie und Nervensystem');
+plan += supplementItem('🥄', 'Calcium', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Unterstützt Knochen- und Zahngesundheit');
+plan += supplementItem('🌻', 'Eisen', `${calculateDosage(weight, 10, 18)} mg täglich`, 'Unterstützt die Blutbildung und Sauerstoffversorgung');
+plan += supplementItem('🧂', 'Selen', `${calculateDosage(weight, 50, 200)} mcg täglich`, 'Antioxidativ und wichtig für die Schilddrüse');
+plan += supplementItem('🌰', 'Kupfer', `${calculateDosage(weight, 1, 3)} mg täglich`, 'Wichtig für Enzyme und das Immunsystem');
+plan += supplementItem('🥛', 'Kalium', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Reguliert den Blutdruck und unterstützt Muskelgesundheit');
+plan += supplementItem('🌱', 'Cholin', `${calculateDosage(weight, 250, 500)} mg täglich`, 'Fördert die Gehirnfunktion und Lebergesundheit');
+plan += supplementItem('🍅', 'Lycopin', `${calculateDosage(weight, 5, 10)} mg täglich`, 'Antioxidans, unterstützt Herzgesundheit');
+plan += supplementItem('🍑', 'Beta-Carotin', `${calculateDosage(weight, 2000, 5000)} IU täglich`, 'Vorstufe von Vitamin A, unterstützt Augen- und Hautgesundheit');
 
-    // Beispielhafter Aufruf der addSupplement-Funktion
-    addSupplement('🍎', 'Multivitamin', `1 Tablette täglich`, 'Grundversorgung mit essentiellen Vitaminen und Mineralstoffen', 'morning');
-            addSupplement('🧴', 'Omega-3 Fischöl', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Fördert Herz- und Gehirngesundheit', 'morning');
-            addSupplement('🥬', 'Spirulina', `${calculateDosage(weight, 3000, 5000)} mg täglich`, 'Nährstoffreiche Alge mit antioxidativer Wirkung', 'midday');
-            addSupplement('🧄', 'Vitamin C', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Unterstützt das Immunsystem und Zellgesundheit', 'morning');
-            addSupplement('🥕', 'Vitamin D3', `${calculateDosage(weight, 1000, 4000)} IU täglich`, 'Stärkt die Knochen und das Immunsystem', 'morning');
-            addSupplement('🍂', 'Zink', `${calculateDosage(weight, 10, 30)} mg täglich`, 'Unterstützt das Immunsystem und die Zellteilung', 'evening');
-            addSupplement('🍊', 'Vitamin B12', '500 mcg täglich', 'Wichtig für Energie und Nervensystem', 'morning');
-            addSupplement('🥄', 'Calcium', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Unterstützt Knochen- und Zahngesundheit', 'evening');
-            addSupplement('🌻', 'Eisen', `${calculateDosage(weight, 10, 18)} mg täglich`, 'Unterstützt die Blutbildung und Sauerstoffversorgung', 'midday');
-            addSupplement('🧂', 'Selen', `${calculateDosage(weight, 50, 200)} mcg täglich`, 'Antioxidativ und wichtig für die Schilddrüse', 'midday');
-            addSupplement('🌰', 'Kupfer', `${calculateDosage(weight, 1, 3)} mg täglich`, 'Wichtig für Enzyme und das Immunsystem', 'midday');
-            addSupplement('🥛', 'Kalium', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Reguliert den Blutdruck und unterstützt Muskelgesundheit', 'evening');
-            addSupplement('🌱', 'Cholin', `${calculateDosage(weight, 250, 500)} mg täglich`, 'Fördert die Gehirnfunktion und Lebergesundheit', 'morning');
-            addSupplement('🍅', 'Lycopin', `${calculateDosage(weight, 5, 10)} mg täglich`, 'Antioxidans, unterstützt Herzgesundheit', 'midday');
-            addSupplement('🍑', 'Beta-Carotin', `${calculateDosage(weight, 2000, 5000)} IU täglich`, 'Vorstufe von Vitamin A, unterstützt Augen- und Hautgesundheit', 'midday');
+if (mood === 'stressed' || mood === 'tired') {
+    plan += supplementItem('🌿', 'Ashwagandha', `${calculateDosage(weight, 300, 600)} mg, morgens und abends`, 'Unterstützt die Stressresistenz und verbessert die Stimmung');
+    plan += supplementItem('🍵', 'L-Theanin', `${calculateDosage(weight, 100, 200)} mg täglich`, 'Fördert Entspannung ohne Müdigkeit');
+    plan += supplementItem('🌰', 'Rhodiola Rosea', `${calculateDosage(weight, 200, 400)} mg morgens`, 'Hilft gegen Stress und Müdigkeit');
+    plan += supplementItem('🌸', 'B-Vitamin Komplex', '1 Tablette täglich', 'Fördert Energie und Nervenstärke');
+    plan += supplementItem('🍃', 'Holy Basil', `${calculateDosage(weight, 300, 500)} mg täglich`, 'Hilft gegen Stress und Unruhe');
+    plan += supplementItem('🍄', 'Reishi', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Hilft bei Stress und unterstützt die Immunabwehr');
+    plan += supplementItem('🥥', 'L-Tryptophan', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Hilft bei der Serotoninproduktion und Stimmung');
+    plan += supplementItem('🌻', 'GABA', '500 mg vor dem Schlafengehen', 'Fördert Ruhe und Entspannung');
+    plan += supplementItem('🌼', 'Lavendelöl', `${calculateDosage(weight, 80, 160)} mg täglich`, 'Fördert Entspannung');
+    plan += supplementItem('🥒', 'Magnolia Rinde', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Hilft gegen Stress');
+    plan += supplementItem('🍫', 'Dunkle Schokolade (70% Kakao)', '20-40g täglich', 'Fördert Glücksgefühle durch Serotonin');
+    plan += supplementItem('🍎', 'Apfelessig', '1 EL täglich in Wasser', 'Fördert Verdauung und reguliert Blutzucker');
+    plan += supplementItem('🍑', 'Vitamin B5', `${calculateDosage(weight, 5, 10)} mg täglich`, 'Hilft bei der Stressbewältigung');
+    plan += supplementItem('🌰', 'Inositol', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Fördert Beruhigung bei Stress');
+    plan += supplementItem('🍯', 'Glycin', `${calculateDosage(weight, 3000, 5000)} mg vor dem Schlafengehen`, 'Fördert Tiefschlaf und Entspannung');
+}
 
-            if (mood === 'stressed' || mood === 'tired') {
-                addSupplement('🌿', 'Ashwagandha', `${calculateDosage(weight, 300, 600)} mg, morgens und abends`, 'Unterstützt die Stressresistenz und verbessert die Stimmung', 'morning');
-                addSupplement('🍵', 'L-Theanin', `${calculateDosage(weight, 100, 200)} mg täglich`, 'Fördert Entspannung ohne Müdigkeit', 'morning');
-                addSupplement('🌰', 'Rhodiola Rosea', `${calculateDosage(weight, 200, 400)} mg morgens`, 'Hilft gegen Stress und Müdigkeit', 'morning');
-                addSupplement('🌸', 'B-Vitamin Komplex', '1 Tablette täglich', 'Fördert Energie und Nervenstärke', 'morning');
-                addSupplement('🍃', 'Holy Basil', `${calculateDosage(weight, 300, 500)} mg täglich`, 'Hilft gegen Stress und Unruhe', 'evening');
-                addSupplement('🍄', 'Reishi', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Hilft bei Stress und unterstützt die Immunabwehr', 'evening');
-                addSupplement('🥥', 'L-Tryptophan', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Hilft bei der Serotoninproduktion und Stimmung', 'evening');
-                addSupplement('🌻', 'GABA', '500 mg vor dem Schlafengehen', 'Fördert Ruhe und Entspannung', 'evening');
-                addSupplement('🌼', 'Lavendelöl', `${calculateDosage(weight, 80, 160)} mg täglich`, 'Fördert Entspannung', 'evening');
-                addSupplement('🥒', 'Magnolia Rinde', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Hilft gegen Stress', 'evening');
-                addSupplement('🍫', 'Dunkle Schokolade (70% Kakao)', '20-40g täglich', 'Fördert Glücksgefühle durch Serotonin', 'midday');
-                addSupplement('🍎', 'Apfelessig', '1 EL täglich in Wasser', 'Fördert Verdauung und reguliert Blutzucker', 'morning');
-                addSupplement('🍑', 'Vitamin B5', `${calculateDosage(weight, 5, 10)} mg täglich`, 'Hilft bei der Stressbewältigung', 'morning');
-                addSupplement('🌰', 'Inositol', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Fördert Beruhigung bei Stress', 'midday');
-                addSupplement('🍯', 'Glycin', `${calculateDosage(weight, 3000, 5000)} mg vor dem Schlafengehen`, 'Fördert Tiefschlaf und Entspannung', 'evening');
-            }
+if (mood === 'tired') {
+    plan += supplementItem('☕️', 'Koffein + L-Theanin', '100mg Koffein + 200mg L-Theanin, morgens', 'Verbessert Fokus und Energie ohne Nervosität');
+    plan += supplementItem('💧', 'CoQ10', `${calculateDosage(weight, 100, 200)} mg morgens`, 'Unterstützt Energieniveau und Herzgesundheit');
+    plan += supplementItem('🌿', 'Cordyceps', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Steigert Energie und Ausdauer');
+    plan += supplementItem('🍄', 'Reishi Pilz', `${calculateDosage(weight, 300, 500)} mg täglich`, 'Beruhigend und ausgleichend');
+    plan += supplementItem('🥭', 'Acetyl-L-Carnitin', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Fördert Energieproduktion und Gehirnfunktion');
+    plan += supplementItem('🥤', 'Eleutherococcus', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Adaptogen zur Förderung der Energie');
+    plan += supplementItem('🥥', 'Vitamin B6', `${calculateDosage(weight, 50, 100)} mg täglich`, 'Fördert den Energiehaushalt');
+    plan += supplementItem('🍓', 'Panax Ginseng', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Fördert Vitalität und Fokus');
+    plan += supplementItem('🌞', 'NAD+', `${calculateDosage(weight, 200, 300)} mg täglich`, 'Unterstützt Zellenergie und Vitalität');
+    plan += supplementItem('🥜', 'D-Ribose', `${calculateDosage(weight, 5, 10)} g täglich`, 'Hilft bei der ATP-Produktion zur Energieversorgung');
+    plan += supplementItem('🍌', 'Biotin', `${calculateDosage(weight, 30, 100)} mcg täglich`, 'Fördert Energie und gesunde Zellfunktionen');
+    plan += supplementItem('🍐', 'Moringa', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Reich an Nährstoffen zur Steigerung der Energie');
+    plan += supplementItem('🥬', 'Chlorella', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Entgiftend und energiefördernd');
+    plan += supplementItem('🌰', 'Macadamiaöl', `${calculateDosage(weight, 10, 20)} ml täglich`, 'Liefert Energie und gesunde Fette');
+}
 
-            if (mood === 'tired') {
-                addSupplement('☕️', 'Koffein + L-Theanin', '100mg Koffein + 200mg L-Theanin, morgens', 'Verbessert Fokus und Energie ohne Nervosität', 'morning');
-                addSupplement('💧', 'CoQ10', `${calculateDosage(weight, 100, 200)} mg morgens`, 'Unterstützt Energieniveau und Herzgesundheit', 'morning');
-                addSupplement('🌿', 'Cordyceps', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Steigert Energie und Ausdauer', 'morning');
-                addSupplement('🍄', 'Reishi Pilz', `${calculateDosage(weight, 300, 500)} mg täglich`, 'Beruhigend und ausgleichend', 'evening');
-                addSupplement('🥭', 'Acetyl-L-Carnitin', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Fördert Energieproduktion und Gehirnfunktion', 'morning');
-                addSupplement('🥤', 'Eleutherococcus', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Adaptogen zur Förderung der Energie', 'morning');
-                addSupplement('🥥', 'Vitamin B6', `${calculateDosage(weight, 50, 100)} mg täglich`, 'Fördert den Energiehaushalt', 'morning');
-                addSupplement('🍓', 'Panax Ginseng', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Fördert Vitalität und Fokus', 'morning');
-                addSupplement('🌞', 'NAD+', `${calculateDosage(weight, 200, 300)} mg täglich`, 'Unterstützt Zellenergie und Vitalität', 'morning');
-                addSupplement('🥜', 'D-Ribose', `${calculateDosage(weight, 5, 10)} g täglich`, 'Hilft bei der ATP-Produktion zur Energieversorgung', 'midday');
-                addSupplement('🍌', 'Biotin', `${calculateDosage(weight, 30, 100)} mcg täglich`, 'Fördert Energie und gesunde Zellfunktionen', 'morning');
-                addSupplement('🍐', 'Moringa', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Reich an Nährstoffen zur Steigerung der Energie', 'midday');
-                addSupplement('🥬', 'Chlorella', `${calculateDosage(weight, 2000, 4000)} mg täglich`, 'Entgiftend und energiefördernd', 'midday');
-                addSupplement('🌰', 'Macadamiaöl', `${calculateDosage(weight, 10, 20)} ml täglich`, 'Liefert Energie und gesunde Fette', 'midday');
-            }
+if (mood === 'happy' || mood === 'energetic') {
+    plan += supplementItem('🌞', '5-HTP', `${calculateDosage(weight, 50, 100)} mg vor dem Schlafengehen`, 'Unterstützt die Serotonin-Produktion für ausgeglichene Stimmung');
+    plan += supplementItem('🍫', 'L-Tyrosin', `${calculateDosage(weight, 500, 1000)} mg vor dem Training`, 'Fördert Wachsamkeit und Motivation');
+    plan += supplementItem('🌅', 'Maca', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Unterstützt Stimmung und Energie');
+    plan += supplementItem('🍇', 'Resveratrol', '100 mg täglich', 'Antioxidativ und unterstützt gesunde Zellalterung');
+    plan += supplementItem('🍋', 'Vitamin B6', `${calculateDosage(weight, 50, 100)} mg täglich`, 'Fördert Energie und gute Laune');
+    plan += supplementItem('🍓', 'B-Vitamine Komplex', '1 Tablette täglich', 'Fördert Nerven und gute Laune');
+    plan += supplementItem('🍍', 'Curcumin', '500 mg täglich', 'Antioxidativ und unterstützt Stimmung');
+    plan += supplementItem('🌰', 'N-Acetylcystein (NAC)', '600 mg täglich', 'Schützt die Zellen und unterstützt positive Stimmung');
+    plan += supplementItem('🥤', 'Eleutherococcus', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Hilft, die Energie zu steigern');
+}
 
-            if (mood === 'happy' || mood === 'energetic') {
-                addSupplement('🌞', '5-HTP', `${calculateDosage(weight, 50, 100)} mg vor dem Schlafengehen`, 'Unterstützt die Serotonin-Produktion für ausgeglichene Stimmung', 'evening');
-                addSupplement('🍫', 'L-Tyrosin', `${calculateDosage(weight, 500, 1000)} mg vor dem Training`, 'Fördert Wachsamkeit und Motivation', 'morning');
-                addSupplement('🌅', 'Maca', `${calculateDosage(weight, 1000, 2000)} mg täglich`, 'Unterstützt Stimmung und Energie', 'morning');
-                addSupplement('🍇', 'Resveratrol', '100 mg täglich', 'Antioxidativ und unterstützt gesunde Zellalterung', 'evening');
-                addSupplement('🍋', 'Vitamin B6', `${calculateDosage(weight, 50, 100)} mg täglich`, 'Fördert Energie und gute Laune', 'morning');
-                addSupplement('🍓', 'B-Vitamine Komplex', '1 Tablette täglich', 'Fördert Nerven und gute Laune', 'morning');
-                addSupplement('🍍', 'Curcumin', '500 mg täglich', 'Antioxidativ und unterstützt Stimmung', 'midday');
-                addSupplement('🌰', 'N-Acetylcystein (NAC)', '600 mg täglich', 'Schützt die Zellen und unterstützt positive Stimmung', 'midday');
-                addSupplement('🥤', 'Eleutherococcus', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Hilft, die Energie zu steigern', 'morning');
-            }
+if (exercise === 'high') {
+    const proteinDosage = Math.round(weight * 1.6);
+    plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich, verteilt auf 2-3 Portionen`, 'Unterstützt Muskelaufbau und Regeneration');
+    plan += supplementItem('🔋', 'Kreatin', '5g täglich', 'Verbessert Kraftleistung und Muskelmasse');
+    plan += supplementItem('🍋', 'BCAA', `${calculateDosage(weight, 5, 10)}g vor dem Training`, 'Reduziert Muskelermüdung und fördert die Erholung');
+    plan += supplementItem('🍍', 'Glutamin', '5g nach dem Training', 'Hilft bei der Regeneration der Muskeln');
+    plan += supplementItem('🥄', 'Beta-Alanin', `${calculateDosage(weight, 2, 5)}g täglich`, 'Reduziert Muskelermüdung bei intensivem Training');
+    plan += supplementItem('🥥', 'L-Citrullin', `${calculateDosage(weight, 5, 8)}g vor dem Training`, 'Fördert Durchblutung und Ausdauer');
+    plan += supplementItem('🍈', 'Taurin', `${calculateDosage(weight, 500, 1000)} mg vor dem Training`, 'Reduziert Muskelermüdung und verbessert die Leistung');
+}
 
-            if (exercise === 'high') {
-                const proteinDosage = Math.round(weight * 1.6);
-                addSupplement('💪', 'Whey Protein', `${proteinDosage}g täglich, verteilt auf 2-3 Portionen`, 'Unterstützt Muskelaufbau und Regeneration', 'midday');
-                addSupplement('🔋', 'Kreatin', '5g täglich', 'Verbessert Kraftleistung und Muskelmasse', 'morning');
-                addSupplement('🍋', 'BCAA', `${calculateDosage(weight, 5, 10)}g vor dem Training`, 'Reduziert Muskelermüdung und fördert die Erholung', 'midday');
-                addSupplement('🍍', 'Glutamin', '5g nach dem Training', 'Hilft bei der Regeneration der Muskeln', 'evening');
-                addSupplement('🥄', 'Beta-Alanin', `${calculateDosage(weight, 2, 5)}g täglich`, 'Reduziert Muskelermüdung bei intensivem Training', 'midday');
-                addSupplement('🥥', 'L-Citrullin', `${calculateDosage(weight, 5, 8)}g vor dem Training`, 'Fördert Durchblutung und Ausdauer', 'midday');
-                addSupplement('🍈', 'Taurin', `${calculateDosage(weight, 500, 1000)} mg vor dem Training`, 'Reduziert Muskelermüdung und verbessert die Leistung', 'midday');
-            }
+if (exercise === 'medium') {
+    const proteinDosage = Math.round(weight * 1.2);
+    plan += supplementItem('💪', 'Whey Protein', `${proteinDosage}g täglich`, 'Unterstützt Muskelerhalt und Regeneration');
+    plan += supplementItem('🥛', 'Casein Protein', '30g vor dem Schlafengehen', 'Langsame Proteinversorgung für über Nacht');
+    plan += supplementItem('🍎', 'Rote-Bete Extrakt', '500mg täglich', 'Unterstützt Blutfluss und Sauerstoffversorgung');
+    plan += supplementItem('🥬', 'Spirulina', `${calculateDosage(weight, 3000, 5000)} mg täglich`, 'Enthält essentielle Aminosäuren');
+}
 
-            if (exercise === 'medium') {
-                const proteinDosage = Math.round(weight * 1.2);
-                addSupplement('💪', 'Whey Protein', `${proteinDosage}g täglich`, 'Unterstützt Muskelerhalt und Regeneration', 'midday');
-                addSupplement('🥛', 'Casein Protein', '30g vor dem Schlafengehen', 'Langsame Proteinversorgung für über Nacht', 'evening');
-                addSupplement('🍎', 'Rote-Bete Extrakt', '500mg täglich', 'Unterstützt Blutfluss und Sauerstoffversorgung', 'morning');
-                addSupplement('🥬', 'Spirulina', `${calculateDosage(weight, 3000, 5000)} mg täglich`, 'Enthält essentielle Aminosäuren', 'midday');
-            }
+if (sleep === 'poor') {
+    plan += supplementItem('😴', 'Melatonin', '0.5-1mg 30 Minuten vor dem Schlafengehen', 'Reguliert den Schlaf-Wach-Rhythmus');
+    plan += supplementItem('🌙', 'Magnesium', `${calculateDosage(weight, 200, 400)}mg vor dem Schlafengehen`, 'Fördert Muskelentspannung und verbessert die Schlafqualität');
+    plan += supplementItem('🍯', 'GABA', '250-500mg 1 Stunde vor dem Schlafengehen', 'Fördert Entspannung und erholsamen Schlaf');
+    plan += supplementItem('🌾', 'L-Glycin', '3g vor dem Schlafengehen', 'Fördert Tiefschlaf und Erholung');
+    plan += supplementItem('🍀', 'Lavendelöl Kapseln', '80mg täglich', 'Fördert Entspannung und beruhigt vor dem Schlaf');
+}
 
-            if (sleep === 'poor') {
-                addSupplement('😴', 'Melatonin', '0.5-1mg 30 Minuten vor dem Schlafengehen', 'Reguliert den Schlaf-Wach-Rhythmus', 'evening');
-                addSupplement('🌙', 'Magnesium', `${calculateDosage(weight, 200, 400)}mg vor dem Schlafengehen`, 'Fördert Muskelentspannung und verbessert die Schlafqualität', 'evening');
-                addSupplement('🍯', 'GABA', '250-500mg 1 Stunde vor dem Schlafengehen', 'Fördert Entspannung und erholsamen Schlaf', 'evening');
-                addSupplement('🌾', 'L-Glycin', '3g vor dem Schlafengehen', 'Fördert Tiefschlaf und Erholung', 'evening');
-                addSupplement('🍀', 'Lavendelöl Kapseln', '80mg täglich', 'Fördert Entspannung und beruhigt vor dem Schlaf', 'evening');
-            }
+if (sleep === 'average' || sleep === 'poor') {
+    plan += supplementItem('🌿', 'Baldrian', '300-600mg 1 Stunde vor dem Schlafengehen', 'Natürliches Beruhigungsmittel, das die Schlafqualität verbessern kann');
+    plan += supplementItem('🌸', 'Passionsblume', `${calculateDosage(weight, 200, 400)} mg vor dem Schlafengehen`, 'Hilft bei Schlafproblemen und fördert Entspannung');
+    plan += supplementItem('🍋', 'Zitronenmelisse', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Fördert Entspannung und verbessert die Schlafqualität');
+    plan += supplementItem('🌷', 'Hopfenextrakt', '200 mg täglich', 'Hilft bei Schlafstörungen');
+}
 
-            if (sleep === 'average' || sleep === 'poor') {
-                addSupplement('🌿', 'Baldrian', '300-600mg 1 Stunde vor dem Schlafengehen', 'Natürliches Beruhigungsmittel, das die Schlafqualität verbessern kann', 'evening');
-                addSupplement('🌸', 'Passionsblume', `${calculateDosage(weight, 200, 400)} mg vor dem Schlafengehen`, 'Hilft bei Schlafproblemen und fördert Entspannung', 'evening');
-                addSupplement('🍋', 'Zitronenmelisse', `${calculateDosage(weight, 300, 600)} mg täglich`, 'Fördert Entspannung und verbessert die Schlafqualität', 'evening');
-                addSupplement('🌷', 'Hopfenextrakt', '200 mg täglich', 'Hilft bei Schlafstörungen', 'evening');
-            }
+const bmi = calculateBMI(weight, height);
+if (bmi < 18.5) {
+    plan += supplementItem('🥛', 'Maltodextrin', `${calculateDosage(weight, 0.5, 1)}g täglich`, 'Kalorienreiche Kohlenhydratquelle zur Gewichtszunahme');
+    plan += supplementItem('🍌', 'Ginseng', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Fördert Appetit und Energie');
+    plan += supplementItem('🍇', 'Schwarzkümmelöl', '1 Esslöffel täglich', 'Kalorienreich und entzündungshemmend');
+    plan += supplementItem('🍠', 'Yamswurzel Extrakt', '300 mg täglich', 'Fördert gesunde Gewichtszunahme');
+    plan += supplementItem('🥜', 'Erdnussbutter', '2 Esslöffel täglich', 'Kalorienreiche Protein- und Fettquelle');
+}
 
-            const bmi = calculateBMI(weight, height);
-            if (bmi < 18.5) {
-                addSupplement('🥛', 'Maltodextrin', `${calculateDosage(weight, 0.5, 1)}g täglich`, 'Kalorienreiche Kohlenhydratquelle zur Gewichtszunahme', 'midday');
-                addSupplement('🍌', 'Ginseng', `${calculateDosage(weight, 200, 400)} mg täglich`, 'Fördert Appetit und Energie', 'morning');
-                addSupplement('🍇', 'Schwarzkümmelöl', '1 Esslöffel täglich', 'Kalorienreich und entzündungshemmend', 'midday');
-                addSupplement('🍠', 'Yamswurzel Extrakt', '300 mg täglich', 'Fördert gesunde Gewichtszunahme', 'midday');
-                addSupplement('🥜', 'Erdnussbutter', '2 Esslöffel täglich', 'Kalorienreiche Protein- und Fettquelle', 'midday');
-            }
-
-            if (bmi > 25) {
-                addSupplement('🍵', 'Grüner Tee Extrakt', '500mg täglich', 'Kann den Stoffwechsel unterstützen und die Fettverbrennung fördern', 'morning');
-                addSupplement('🔥', 'Garcinia Cambogia', '500mg vor den Mahlzeiten', 'Unterstützt den Fettabbau und reduziert den Appetit', 'midday');
-                addSupplement('🥒', 'Apfelessig-Kapseln', '1-2 Kapseln vor Mahlzeiten', 'Kann die Fettverbrennung fördern', 'midday');
-                addSupplement('🍈', 'CLA (konjugierte Linolsäure)', `${calculateDosage(weight, 1000, 3000)} mg täglich`, 'Hilft bei der Körperfettreduktion', 'midday');
-                addSupplement('🥭', 'Chitosan', `${calculateDosage(weight, 1000, 2000)} mg vor Mahlzeiten`, 'Reduziert Fettaufnahme aus Nahrung', 'midday');
-            }
-
-            addSupplement('☀️', 'Vitamin D3', `${calculateVitaminDDosage(weight)} IU täglich`, 'Unterstützt Immunsystem, Knochengesundheit und allgemeines Wohlbefinden', 'morning');
-            addSupplement('🦴', 'Calcium', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Fördert starke Knochen und Zähne', 'evening');
-            addSupplement('🍀', 'Vitamin K2', '100mcg täglich', 'Unterstützt Knochengesundheit und Herz-Kreislauf-System', 'evening');
-
-    // Weitere Supplements werden hier hinzugefügt…
-
-    // Erstelle HTML-Layout für Supplements nach Einnahmezeit
-    let plan = '<h2>Ihr personalisierter Supplement Plan</h2>';
-    if (morningSupplements.length > 0) {
-        plan += '<div class="time-category"><h3>Morgens</h3>' + morningSupplements.join('') + '</div>';
-    }
-    if (middaySupplements.length > 0) {
-        plan += '<div class="time-category"><h3>Mittags</h3>' + middaySupplements.join('') + '</div>';
-    }
-    if (eveningSupplements.length > 0) {
-        plan += '<div class="time-category"><h3>Abends</h3>' + eveningSupplements.join('') + '</div>';
-    }
-
-    plan += '<p><strong>Hinweis:</strong> Bitte besprechen Sie die Einnahme von Nahrungsergänzungsmitteln mit Ihrem Arzt.</p>';
-
-    // Zeige das Ergebnis an und beende die Ladeanimation
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('result').innerHTML = plan;
-    document.getElementById('result').style.display = 'block';
+if (bmi > 25) {
+    plan += supplementItem('🍵', 'Grüner Tee Extrakt', '500mg täglich', 'Kann den Stoffwechsel unterstützen und die Fettverbrennung fördern');
+    plan += supplementItem('🔥', 'Garcinia Cambogia', '500mg vor den Mahlzeiten', 'Unterstützt den Fettabbau und reduziert den Appetit');
+    plan += supplementItem('🥒', 'Apfelessig-Kapseln', '1-2 Kapseln vor Mahlzeiten', 'Kann die Fettverbrennung fördern');
+    plan += supplementItem('🍈', 'CLA (konjugierte Linolsäure)', `${calculateDosage(weight, 1000, 3000)} mg täglich`, 'Hilft bei der Körperfettreduktion');
+    plan += supplementItem('🥭', 'Chitosan', `${calculateDosage(weight, 1000, 2000)} mg vor Mahlzeiten`, 'Reduziert Fettaufnahme aus Nahrung');
 }
 
 
+            plan += supplementItem('☀️', 'Vitamin D3', `${calculateVitaminDDosage(weight)} IU täglich`, 'Unterstützt Immunsystem, Knochengesundheit und allgemeines Wohlbefinden');
+            plan += supplementItem('🦴', 'Calcium', `${calculateDosage(weight, 500, 1000)} mg täglich`, 'Fördert starke Knochen und Zähne');
+            plan += supplementItem('🍀', 'Vitamin K2', '100mcg täglich', 'Unterstützt Knochengesundheit und Herz-Kreislauf-System');
 
+            plan += '<p><strong>Hinweis:</strong> Bitte besprechen Sie die Einnahme von Nahrungsergänzungsmitteln mit Ihrem Arzt, insbesondere wenn Sie Medikamente einnehmen oder gesundheitliche Probleme haben.</p>';
 
-         
-
-        
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('result').innerHTML = plan;
+            document.getElementById('result').style.display = 'block';
+        }
   
         function supplementItem(icon, name, dosage, description) {
             return `
@@ -685,7 +629,6 @@
 
         function getSupplementBenefits(name) {
     const benefits = {
-       
         'Multivitamin': 'Versorgt den Körper mit essentiellen Vitaminen und Mineralstoffen, um Nährstofflücken zu schließen. Fördert die Zellfunktion, Immunität und Energiestoffwechsel. Einige Vitamine wie B-Vitamine sind Kofaktoren für Enzyme, die für die Zellatmung benötigt werden.',
         'Omega-3 Fischöl': 'Omega-3-Fettsäuren (EPA und DHA) wirken entzündungshemmend, indem sie die Produktion von entzündungsfördernden Eicosanoiden hemmen. Unterstützen das Herz-Kreislauf-System durch Förderung der Blutfettwerte und wirken blutverdünnend, wodurch das Risiko für Herzinfarkte gesenkt wird. DHA ist zudem ein Hauptbestandteil der Gehirnstruktur und fördert die kognitive Funktion.',
         'Spirulina': 'Reich an Proteinen, Antioxidantien und Chlorophyll, welches die Zellen vor oxidativem Stress schützt und das Immunsystem durch Phycocyanin stärkt. Phycocyanin kann entzündungshemmend wirken und die Immunantwort des Körpers verbessern.',
@@ -745,13 +688,11 @@
         'Grüner Tee Extrakt': 'Reich an Antioxidantien und Koffein, die den Stoffwechsel anregen und das Herz-Kreislauf-System unterstützen.',
         'Vitamin K2': 'Fördert die Knochengesundheit und Herzfunktion, indem es Calcium in die Knochen leitet und arterielle Verkalkungen verhindert.'
     };
-    
     return benefits[name] || 'Noch keine spezifischen Informationen verfügbar.';
 }
 
 function getSupplementSideEffects(name) {
     const sideEffects = {
-       
         'Multivitamin': 'Übelkeit und Magenbeschwerden bei Einnahme auf leeren Magen, selten allergische Reaktionen.',
         'Omega-3 Fischöl': 'Magenbeschwerden, fischiger Nachgeschmack, selten Blutungsneigung.',
         'Spirulina': 'Magen-Darm-Beschwerden, selten allergische Reaktionen.',
@@ -811,7 +752,6 @@ function getSupplementSideEffects(name) {
         'Grüner Tee Extrakt': 'Schlaflosigkeit und Magenbeschwerden.',
         'Vitamin K2': 'Selten Magenprobleme und Kopfschmerzen.'
     };
-
     return sideEffects[name] || 'Informationen noch nicht verfügbar.';
 }
 
