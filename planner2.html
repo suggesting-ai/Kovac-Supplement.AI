@@ -270,9 +270,15 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            
-            
-        }
+            opacity: 0; /* Anfangszustand */
+    transform: scale(0.9); /* Startet kleiner für organischen Effekt */
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Smooth transition */
+}
+
+.supplement-details-container.show {
+    opacity: 1; /* Endzustand */
+    transform: scale(1); /* Endzustand */
+}
 
         
 
@@ -644,14 +650,7 @@
     document.getElementById('result').style.display = 'block';
 }
 
-
-
-
-         
-
-        
-  
-        function supplementItem(icon, name, dosage, description) {
+function supplementItem(icon, name, dosage, description) {
             return `
                 <div class="supplement-item" onclick="showSupplementDetails('${name}', '${dosage}', '${description}')">
                     <div class="supplement-icon">${icon}</div>
@@ -664,7 +663,7 @@
             `;
         }
 
-        function showSupplementDetails(name, dosage, description) {
+function showSupplementDetails(name, dosage, description) {
             const detailsHtml = `
                 <div class="supplement-details">
                     <h3>${name}</h3>
@@ -675,18 +674,31 @@
                     <button onclick="window.open('https://www.amazon.com', '_blank')" class="buy-button">Jetzt kaufen</button>
                 </div>
             `;
-            
-            const detailsContainer = document.createElement('div');
-            detailsContainer.innerHTML = detailsHtml;
-            detailsContainer.className = 'supplement-details-container';
-            document.body.appendChild(detailsContainer);
 
-            detailsContainer.onclick = function(event) {
-                if (event.target === detailsContainer) {
-                    document.body.removeChild(detailsContainer);
-                }
-            };
-        }
+      
+    
+    const detailsContainer = document.createElement('div');
+    detailsContainer.innerHTML = detailsHtml;
+    detailsContainer.className = 'supplement-details-container';
+    
+    // Füge den Container zum Body hinzu
+    document.body.appendChild(detailsContainer);
+
+    // Füge die Klasse `.show` für die Animation hinzu, nachdem das Element gerendert ist
+    setTimeout(() => detailsContainer.classList.add('show'), 10);
+
+    // Event-Listener, um den Container zu schließen, wenn man außerhalb klickt
+    detailsContainer.onclick = function(event) {
+        if (event.target === detailsContainer) {
+            // Entferne die `.show`-Klasse, um das Element auszublenden
+            detailsContainer.classList.remove('show');
+            setTimeout(() => document.body.removeChild(detailsContainer), 400); // Verzögerung für smoothes Entfernen
+          }
+    };
+}
+
+
+
 
         function getSupplementBenefits(name) {
     const benefits = {
