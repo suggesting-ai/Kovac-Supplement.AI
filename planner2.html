@@ -195,11 +195,12 @@
 
         #result {
             margin-top: 20px;
-            padding: 15px;
+            padding: 10px;
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 9px;
             display: none;
-            width: 95%;
+            width: 97%;
+            padding-right: 17px;
         }
 
         .supplement-item {
@@ -207,6 +208,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 15px;
+            
             padding: 7px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
@@ -633,13 +635,13 @@
     // Erstelle HTML-Layout für Supplements nach Einnahmezeit
     let plan = '<h2>Ihr personalisierter Supplement Plan</h2>';
     if (morningSupplements.length > 0) {
-        plan += '<div class="time-category"><h3>Morgens <?xml version="1.0"?><svg class="clockicon1" fill="#e6f1ff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128" width="34.5px" height="34.5px" font-weight="bolder" >    <path d="M 64 13.5 C 36.2 13.5 13.5 36.2 13.5 64 C 13.5 91.8 36.2 114.5 64 114.5 C 91.8 114.5 114.5 91.8 114.5 64 C 114.5 36.2 91.8 13.5 64 13.5 z M 64 19.5 C 88.5 19.5 108.5 39.5 108.5 64 C 108.5 88.5 88.5 108.5 64 108.5 C 39.5 108.5 19.5 88.5 19.5 64 C 19.5 39.5 39.5 19.5 64 19.5 z M 64 31 C 62.3 31 61 32.3 61 34 L 61 58.800781 C 59.2 59.800781 58 61.8 58 64 C 58 67.3 60.7 70 64 70 C 66.2 70 68.199219 68.8 69.199219 67 L 84 67 C 85.7 67 87 65.7 87 64 C 87 62.3 85.7 61 84 61 L 69.199219 61 C 68.699219 60.1 67.9 59.300781 67 58.800781 L 67 34 C 67 32.3 65.7 31 64 31 z"/></svg>  </h3>' + morningSupplements.join('') + '</div>';
+        plan += '<div class="time-category"><h3>Morgens (vor der Mahlzeit) <?xml version="1.0"?><svg class="clockicon1" fill="#e6f1ff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128" width="34.5px" height="34.5px" font-weight="bolder" >    <path d="M 64 13.5 C 36.2 13.5 13.5 36.2 13.5 64 C 13.5 91.8 36.2 114.5 64 114.5 C 91.8 114.5 114.5 91.8 114.5 64 C 114.5 36.2 91.8 13.5 64 13.5 z M 64 19.5 C 88.5 19.5 108.5 39.5 108.5 64 C 108.5 88.5 88.5 108.5 64 108.5 C 39.5 108.5 19.5 88.5 19.5 64 C 19.5 39.5 39.5 19.5 64 19.5 z M 64 31 C 62.3 31 61 32.3 61 34 L 61 58.800781 C 59.2 59.800781 58 61.8 58 64 C 58 67.3 60.7 70 64 70 C 66.2 70 68.199219 68.8 69.199219 67 L 84 67 C 85.7 67 87 65.7 87 64 C 87 62.3 85.7 61 84 61 L 69.199219 61 C 68.699219 60.1 67.9 59.300781 67 58.800781 L 67 34 C 67 32.3 65.7 31 64 31 z"/></svg>  </h3>' + morningSupplements.join('') + '</div>';
     }
     if (middaySupplements.length > 0) {
-        plan += '<div class="time-category"><h3>Mittags <?xml version="1.0"?><svg class="clockicon1" fill="#e6f1ff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128" width="34.5px" height="34.5px" font-weight="bolder" >    <path d="M 64 13.5 C 36.2 13.5 13.5 36.2 13.5 64 C 13.5 91.8 36.2 114.5 64 114.5 C 91.8 114.5 114.5 91.8 114.5 64 C 114.5 36.2 91.8 13.5 64 13.5 z M 64 19.5 C 88.5 19.5 108.5 39.5 108.5 64 C 108.5 88.5 88.5 108.5 64 108.5 C 39.5 108.5 19.5 88.5 19.5 64 C 19.5 39.5 39.5 19.5 64 19.5 z M 64 31 C 62.3 31 61 32.3 61 34 L 61 58.800781 C 59.2 59.800781 58 61.8 58 64 C 58 67.3 60.7 70 64 70 C 66.2 70 68.199219 68.8 69.199219 67 L 84 67 C 85.7 67 87 65.7 87 64 C 87 62.3 85.7 61 84 61 L 69.199219 61 C 68.699219 60.1 67.9 59.300781 67 58.800781 L 67 34 C 67 32.3 65.7 31 64 31 z"/></svg>  </h3>' + middaySupplements.join('') + '</div>';
+        plan += '<div class="time-category"><h3>Mittags (vor der Mahlzeit) <?xml version="1.0"?><svg class="clockicon1" fill="#e6f1ff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128" width="34.5px" height="34.5px" font-weight="bolder" >    <path d="M 64 13.5 C 36.2 13.5 13.5 36.2 13.5 64 C 13.5 91.8 36.2 114.5 64 114.5 C 91.8 114.5 114.5 91.8 114.5 64 C 114.5 36.2 91.8 13.5 64 13.5 z M 64 19.5 C 88.5 19.5 108.5 39.5 108.5 64 C 108.5 88.5 88.5 108.5 64 108.5 C 39.5 108.5 19.5 88.5 19.5 64 C 19.5 39.5 39.5 19.5 64 19.5 z M 64 31 C 62.3 31 61 32.3 61 34 L 61 58.800781 C 59.2 59.800781 58 61.8 58 64 C 58 67.3 60.7 70 64 70 C 66.2 70 68.199219 68.8 69.199219 67 L 84 67 C 85.7 67 87 65.7 87 64 C 87 62.3 85.7 61 84 61 L 69.199219 61 C 68.699219 60.1 67.9 59.300781 67 58.800781 L 67 34 C 67 32.3 65.7 31 64 31 z"/></svg>  </h3>' + middaySupplements.join('') + '</div>';
     }
     if (eveningSupplements.length > 0) {
-        plan += '<div class="time-category"><h3>Abends <?xml version="1.0"?><svg class="clockicon1" fill="#e6f1ff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128" width="34.5px" height="34.5px" font-weight="bolder" >    <path d="M 64 13.5 C 36.2 13.5 13.5 36.2 13.5 64 C 13.5 91.8 36.2 114.5 64 114.5 C 91.8 114.5 114.5 91.8 114.5 64 C 114.5 36.2 91.8 13.5 64 13.5 z M 64 19.5 C 88.5 19.5 108.5 39.5 108.5 64 C 108.5 88.5 88.5 108.5 64 108.5 C 39.5 108.5 19.5 88.5 19.5 64 C 19.5 39.5 39.5 19.5 64 19.5 z M 64 31 C 62.3 31 61 32.3 61 34 L 61 58.800781 C 59.2 59.800781 58 61.8 58 64 C 58 67.3 60.7 70 64 70 C 66.2 70 68.199219 68.8 69.199219 67 L 84 67 C 85.7 67 87 65.7 87 64 C 87 62.3 85.7 61 84 61 L 69.199219 61 C 68.699219 60.1 67.9 59.300781 67 58.800781 L 67 34 C 67 32.3 65.7 31 64 31 z"/></svg>  </h3>' + eveningSupplements.join('') + '</div>';
+        plan += '<div class="time-category"><h3>Abends (vor der Mahlzeit) <?xml version="1.0"?><svg class="clockicon1" fill="#e6f1ff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128" width="34.5px" height="34.5px" font-weight="bolder" >    <path d="M 64 13.5 C 36.2 13.5 13.5 36.2 13.5 64 C 13.5 91.8 36.2 114.5 64 114.5 C 91.8 114.5 114.5 91.8 114.5 64 C 114.5 36.2 91.8 13.5 64 13.5 z M 64 19.5 C 88.5 19.5 108.5 39.5 108.5 64 C 108.5 88.5 88.5 108.5 64 108.5 C 39.5 108.5 19.5 88.5 19.5 64 C 19.5 39.5 39.5 19.5 64 19.5 z M 64 31 C 62.3 31 61 32.3 61 34 L 61 58.800781 C 59.2 59.800781 58 61.8 58 64 C 58 67.3 60.7 70 64 70 C 66.2 70 68.199219 68.8 69.199219 67 L 84 67 C 85.7 67 87 65.7 87 64 C 87 62.3 85.7 61 84 61 L 69.199219 61 C 68.699219 60.1 67.9 59.300781 67 58.800781 L 67 34 C 67 32.3 65.7 31 64 31 z"/></svg>  </h3>' + eveningSupplements.join('') + '</div>';
     }
 
     plan += '<p><strong>Hinweis:</strong> Bitte besprechen Sie die Einnahme von Nahrungsergänzungsmitteln mit Ihrem Arzt.</p>';
