@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI Supplement Planner</title>
+    <title>Kontakt - KI Supplement Planner</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -90,81 +90,85 @@
             padding: 5px 10px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            font-weight: bolder;
         }
 
         .menu a:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
 
+        main {
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+
         h1 {
-            color: var(--text-color);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero {
-            padding: 60px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h2 {
             color: var(--primary-color);
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(90deg, #21b09d 0%, var(--secondary-color) 100%);
-            color: var(--text-color);
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.4);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 255, 157, 0.6);
-        }
-
-        .features {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .feature {
-            flex-basis: calc(33.333% - 20px);
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
             text-align: center;
-            transition: all 0.3s ease;
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 32px 0 rgba(31, 135, 104, 0.37);
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .feature h3 {
+        label {
+            display: block;
+            margin-bottom: 5px;
             color: var(--primary-color);
-            margin-bottom: 10px;
+        }
+
+        input:hover{
+            box-shadow: 0 0 0 2px #00ff9d;
+        }
+
+        input, textarea {
+            width: 95%;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            color: var(--text-color);
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: linear-gradient(90deg, #19403b 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            padding: 10px 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.4);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 20px 0;
         }
 
         .futuristic-shape {
@@ -178,63 +182,8 @@
             z-index: -1;
         }
 
-        .shape1 { top: 10%; left: 5%; }
-        .shape2 { bottom: 20%; right: 10%; }
-
-        footer {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            text-align: center;
-            padding: 20px 0;
-            margin-top: auto;
-        }
-
-        /* Side menu for mobile */
-        .side-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 250px;
-            height: 100%;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-            transition: transform 0.4s ease-in-out; /* Smooth transition */
-            transform: translateX(100%);
-            z-index: 1000;
-            opacity: 0;
-        }
-
-        .side-menu a {
-            display: block;
-            padding: 10px 20px;
-            color: var(--text-color);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .side-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .side-menu.active {
-            display: block;
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .close-menu {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5em;
-            color: #fff;
-            cursor: pointer;
-            transform: translateX(0);
-            opacity: 0;
-        }
+        .shape1 { top: 20%; left: 5%; }
+        .shape2 { bottom: 10%; right: 5%; }
 
         @media (max-width: 768px) {
             .menu {
@@ -245,19 +194,136 @@
                 font-size: 1.5em;
                 color: var(--text-color);
                 cursor: pointer;
+                flex-direction: column;
+                font-weight: bolder;
+            }
+            .side-menu{
+                background:  rgba(17, 17, 17, 0.779);
             }
         }
+
+        /* Side menu styles */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -190px;
+            width: 190px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: var(--text-color);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-weight: bolder;
+        }
+
+        .side-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .side-menu.active a {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0.2s;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5em;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .side-menu.active .close-menu {
+            opacity: 1;
+            transition-delay: 0.4s;
+        }
+
+        .checkmark {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #00ff9d;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #00ff9d;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  text-align: center;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #00ff9d;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  text-align: center;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  text-align: center;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #00ff9d;
+  }
+}
+
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">AI Supplement Planner</a>
+                <a href="index.html" class="logo">KI Supplement Planner</a>
                 <div class="menu">
-                    <a href="features.html"><strong>Features</strong></a>
-                    <a href="about.html"><strong>About Us</strong></a>
-                    <a href="contact.html"><strong>Contact</strong></a>
+                    <a href="index.html">Home</a>
+                    <a href="features.html">Features</a>
+                    <a href="about.html">Über uns</a>
+                    <a href="contact.html">Kontakt</a>
                 </div>
                 <div class="menu-toggle">☰</div>
             </nav>
@@ -266,36 +332,38 @@
 
     <div class="side-menu" id="side-menu">
         <span class="close-menu" id="close-menu">×</span>
-        <a href="features.html"><strong>Features</strong></a>
-        <a href="about.html"><strong>About Us</strong></a>
-        <a href="contact.html"><strong>Contact</strong></a>
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="about.html">Über uns</a>
+        <a href="contact.html">Kontakt</a>
     </div>
 
     <main>
-        <section class="hero">
-            <div class="futuristic-shape shape1"></div>
-            <div class="futuristic-shape shape2"></div>
-            <div class="container">
-                <h2>Die Zukunft der personalisierten Nahrungsergänzung</h2>
-                <p>Unser KI-gesteuerter Supplement Planner analysiert Ihre individuellen Bedürfnisse und erstellt einen maßgeschneiderten Plan für optimale Gesundheit und Leistung.</p>
-                <a href="planner2.html" class="cta-button">Try Supplement-Planner ↗</a>
+        <div class="container">
+            <h1>Kontaktieren Sie uns</h1>
+            <div class="contact-form">
+                <form id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbyydmmn5cUHjmhewqBHoh-fsXP7QLcHPpPC5cBvV4OndnXKfxak2OY3A42uDVWg4rtGvg/exec" name="contact-form"  >
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Nachricht:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit">Nachricht senden</button>
+                </form>
             </div>
-        </section>
+        </div>
+        <div class="futuristic-shape shape1"></div>
+        <div class="futuristic-shape shape2"></div>
 
-        <section id="features" class="features container">
-            <div class="feature">
-                <h3>Personalisierte Empfehlungen</h3>
-                <p>Basierend auf Ihren einzigartigen Eigenschaften und Zielen erstellt unsere KI einen individuellen Supplementplan, der perfekt auf Sie abgestimmt ist.</p>
-            </div>
-            <div class="feature">
-                <h3>Wissenschaftlich fundiert</h3>
-                <p>Alle Empfehlungen basieren auf den neuesten wissenschaftlichen Erkenntnissen und werden kontinuierlich aktualisiert, um Ihnen stets die bestmögliche Beratung zu bieten.</p>
-            </div>
-            <div class="feature">
-                <h3>Einfach zu bedienen</h3>
-                <p>Beantworten Sie einige kurze Fragen zu Ihrem Lebensstil und Ihren Zielen, und erhalten Sie sofort Ihren maßgeschneiderten Supplementplan - einfach und effizient.</p>
-            </div>
-        </section>
+      
+
     </main>
 
     <footer>
@@ -305,17 +373,22 @@
     </footer>
 
     <script>
-         const sideMenu = document.getElementById('side-menu');
+        const sideMenu = document.getElementById('side-menu');
         const menuToggle = document.querySelector('.menu-toggle');
         const closeMenu = document.getElementById('close-menu');
 
         menuToggle.addEventListener('click', function() {
-            sideMenu.classList.toggle('active');
+            sideMenu.classList.add('active');
         });
 
         closeMenu.addEventListener('click', function() {
-            sideMenu.classList.remove('open');
+            sideMenu.classList.remove('active');
         });
+
+   
+
+
+       
     </script>
 </body>
 </html>

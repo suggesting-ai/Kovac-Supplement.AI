@@ -258,6 +258,61 @@
             opacity: 1;
             transition-delay: 0.4s;
         }
+
+        .checkmark {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #00ff9d;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #00ff9d;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  text-align: center;
+  margin-left: 40px;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #00ff9d;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  text-align: center;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  text-align: center;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 10px #00ff9d;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -288,7 +343,7 @@
         <div class="container">
             <h1>Kontaktieren Sie uns</h1>
             <div class="contact-form">
-                <form id="contactForm">
+                <form id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbyydmmn5cUHjmhewqBHoh-fsXP7QLcHPpPC5cBvV4OndnXKfxak2OY3A42uDVWg4rtGvg/exec" name="contact-form"  >
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" required>
@@ -307,6 +362,9 @@
         </div>
         <div class="futuristic-shape shape1"></div>
         <div class="futuristic-shape shape2"></div>
+
+      
+
     </main>
 
     <footer>
@@ -328,10 +386,51 @@
             sideMenu.classList.remove('active');
         });
 
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.');
+   
+        document.getElementById("contactForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Verhindert das Standard-Formularverhalten (neues Laden der Seite)
+    
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+        // Senden der Formulardaten an das Google Apps Script
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
         });
+
+        if (response.ok) {
+            // Erfolgsmeldung anzeigen
+            showSuccessMessage();
+            form.reset(); // Formularfelder leeren
+        } else {
+            alert("Es gab ein Problem beim Senden. Bitte versuchen Sie es später erneut.");
+        }
+    } catch (error) {
+        console.error("Fehler beim Senden des Formulars:", error);
+        alert("Es gab ein Problem beim Senden. Bitte versuchen Sie es später erneut.");
+    }
+});
+
+function showSuccessMessage() {
+    // Einfügen des Erfolgs-Häkchens
+    const container = document.querySelector(".contact-form");
+    const successMessage = document.createElement("div");
+    successMessage.innerHTML = `
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14 27l7.5 7.5L38 17"/>
+        </svg>
+         <p style="text-align:center;color:var(--primary-color);font-weight:bold;">Ihre Nachricht wurde erfolgreich gesendet!</p>
+    
+    `;
+    container.innerHTML = ""; // Inhalt des Formulars löschen
+    container.appendChild(successMessage);
+}
+
+
+       
     </script>
 </body>
 </html>
