@@ -275,6 +275,7 @@
             opacity: 0; /* Anfangszustand */
     transform: scale(0.9); /* Startet kleiner für organischen Effekt */
     transition: opacity 0.4s ease, transform 0.4s ease; /* Smooth transition */
+    border-radius: 61px;
 }
 
 .supplement-details-container.show {
@@ -688,8 +689,8 @@ function showSupplementDetails(name, dosage, description) {
                 <div class="supplement-details">
                     <h3>${name}</h3>
                     <p><strong>Dosierung:</strong> ${dosage}</p>
-                    <p><strong>Beschreibung:</strong> ${description}</p>
-                    <p><strong>Vorteile:</strong> ${getSupplementBenefits(name)}</p>
+                    <p><strong>Vorteile:</strong> ${description}</p>
+                    <p><strong>Beschreibung:</strong> ${getSupplementBenefits(name)}</p>
                     <p><strong>Mögliche Nebenwirkungen:</strong> ${getSupplementSideEffects(name)}</p>
                     <button onclick="window.open('https://www.amazon.com', '_blank')" class="buy-button">Jetzt kaufen</button>
                 </div>
@@ -741,11 +742,12 @@ function showSupplementDetails(name, dosage, description) {
         'Ashwagandha': 'Ein Adaptogen, das den Cortisolspiegel senkt und die Stressresistenz erhöht. Ashwagandha fördert die Ausschüttung von GABA, einem beruhigenden Neurotransmitter, und unterstützt so Entspannung und Schlaf.',
         'L-Theanin': 'Fördert die Bildung von Alpha-Gehirnwellen, die mit Entspannung und Fokus assoziiert werden, ohne Müdigkeit zu verursachen. L-Theanin erhöht zudem die Wirkung von Neurotransmittern wie Dopamin und Serotonin.',
         'Rhodiola Rosea': 'Ein Adaptogen, das die Stressresistenz verbessert, indem es die Produktion von Stresshormonen wie Cortisol reguliert. Rhodiola erhöht zudem die mentale und physische Ausdauer.',
-        'B-Vitamin Komplex': 'Unterstützt die Energieproduktion, indem B-Vitamine als Kofaktoren im Stoffwechsel von Kohlenhydraten, Fetten und Proteinen fungieren. Fördert die Funktion des Nervensystems und die Bildung roter Blutkörperchen.',
+        'B-Vitamine Komplex': 'Unterstützt die Energieproduktion, indem B-Vitamine als Kofaktoren im Stoffwechsel von Kohlenhydraten, Fetten und Proteinen fungieren. Fördert die Funktion des Nervensystems und die Bildung roter Blutkörperchen.',
         'Holy Basil': 'Adaptogen, das die Cortisolproduktion senkt und antioxidative Eigenschaften hat. Es wird zur Förderung der geistigen Klarheit und Ruhe eingesetzt.',
         'Reishi': 'Ein adaptogener Pilz, der die Immunfunktion stärkt und das Nervensystem beruhigt. Er enthält Beta-Glucane, die das Immunsystem aktivieren und entzündungshemmend wirken.',
         'L-Tryptophan': 'Eine Vorstufe von Serotonin, das die Stimmung und den Schlafzyklus reguliert. Durch die Erhöhung des Serotoninspiegels fördert Tryptophan Entspannung und verbessert die Schlafqualität.',
         'GABA': 'Ein inhibitorischer Neurotransmitter, der neuronale Erregung reduziert und Entspannung fördert. GABA-Rezeptoren spielen eine wichtige Rolle bei der Regulierung des Schlaf-Wach-Rhythmus.',
+        'Lavendelöl Kapseln': 'Fördert Entspannung durch Bindung an GABA-Rezeptoren und hat eine beruhigende Wirkung auf das Nervensystem. Wird oft zur Förderung der Schlafqualität eingesetzt.',
         'Lavendelöl': 'Fördert Entspannung durch Bindung an GABA-Rezeptoren und hat eine beruhigende Wirkung auf das Nervensystem. Wird oft zur Förderung der Schlafqualität eingesetzt.',
         'Magnolia Rinde': 'Enthält Honokiol, das GABA-Rezeptoren aktiviert und stresslindernd wirkt. Es kann helfen, Ängste und Stresssymptome zu reduzieren.',
         'Dunkle Schokolade': 'Erhöht die Produktion von Endorphinen und Serotonin, was die Stimmung hebt. Der hohe Polyphenolgehalt wirkt antioxidativ und kann die kardiovaskuläre Gesundheit fördern.',
@@ -780,7 +782,36 @@ function showSupplementDetails(name, dosage, description) {
         'Baldrian': 'Hat eine beruhigende Wirkung und unterstützt die Schlafqualität durch Bindung an GABA-Rezeptoren im Gehirn.',
         'Maltodextrin': 'Eine schnell verfügbare Kohlenhydratquelle, die die Glykogenspeicher nach intensivem Training auffüllt und die Energieversorgung verbessert.',
         'Grüner Tee Extrakt': 'Reich an Antioxidantien und Koffein, die den Stoffwechsel anregen und das Herz-Kreislauf-System unterstützen.',
-        'Vitamin K2': 'Fördert die Knochengesundheit und Herzfunktion, indem es Calcium in die Knochen leitet und arterielle Verkalkungen verhindert.'
+        'Vitamin K2': 'Fördert die Knochengesundheit und Herzfunktion, indem es Calcium in die Knochen leitet und arterielle Verkalkungen verhindert.',
+        'Glutamin': 'Unterstützt die Regeneration des Darms und die Funktion des Immunsystems. Es dient als Energiequelle für schnell teilende Zellen und fördert die Proteinsynthese in der Muskulatur.',
+        'Taurin': 'Ein Aminosäurederivat, das antioxidativ wirkt und die Funktion von Herz und Nervensystem unterstützt. Es spielt eine Rolle im Kalziumtransport in den Zellen und der Regulation des Elektrolytgleichgewichts.',
+        'Ginkgo Biloba': 'Fördert die Durchblutung, insbesondere im Gehirn, und unterstützt so die kognitive Funktion und Konzentration. Enthält Antioxidantien, die die Zellen vor Schäden durch freie Radikale schützen.',
+        'Schwarzkümmelöl': 'Reich an Antioxidantien und entzündungshemmenden Verbindungen. Es unterstützt das Immunsystem und kann Hautprobleme wie Akne oder Ekzeme lindern.',
+        'Hopfenextrakt': 'Ein pflanzlicher Extrakt, der beruhigende und schlaffördernde Eigenschaften besitzt, indem er GABA-Rezeptoren beeinflusst und so die Entspannung unterstützt.',
+        'Aktivkohle': 'Hilft bei der Entgiftung, indem sie Toxine und Gifte bindet und den Körper von schädlichen Substanzen befreit. Wird oft bei Verdauungsstörungen eingesetzt.',
+        'Aloe Vera': 'Fördert die Hautgesundheit und unterstützt die Verdauung durch entzündungshemmende Eigenschaften. Hilft bei der Wundheilung und hat auch antioxidative Effekte.',
+        'Artischockenextrakt': 'Fördert die Verdauung, indem es die Gallenproduktion anregt. Kann bei Verdauungsstörungen, Blähungen und bei der Senkung des Cholesterinspiegels hilfreich sein.',
+        'Astaxanthin': 'Ein starkes Antioxidans, das entzündungshemmend wirkt und die Haut vor UV-Strahlung schützt. Fördert die Augengesundheit und kann bei Muskelermüdung unterstützend wirken.',
+        'Bromelain': 'Ein Enzym aus der Ananas, das entzündungshemmend wirkt und die Verdauung unterstützt. Wird oft bei Entzündungen und Muskelverspannungen verwendet.',
+        'Echinacea': 'Stärkt das Immunsystem und kann helfen, Erkältungssymptome zu lindern. Hat entzündungshemmende und antioxidative Eigenschaften.',
+        'Grapefruitkernextrakt': 'Hat antimikrobielle und antivirale Eigenschaften. Unterstützt das Immunsystem und hilft bei der Bekämpfung von Infektionen.',
+        'OPC (Traubenkernextrakt)': 'Ein starkes Antioxidans, das freie Radikale neutralisiert und das Herz-Kreislaufsystem unterstützt. Fördert die Blutzirkulation und stärkt die Blutgefäße.',
+        'Probiotika': 'Fördern eine gesunde Darmflora, verbessern die Verdauung und stärken das Immunsystem. Probiotika können auch bei der Bekämpfung von Magen-Darm-Erkrankungen hilfreich sein.',
+        'Rote Beete Pulver': 'Fördert die Durchblutung und unterstützt die Ausdauerleistung durch die Erweiterung der Blutgefäße. Rote Beete ist auch reich an Antioxidantien, die den Körper vor oxidativem Stress schützen.',
+        'S-Adenosylmethionin (SAM-e)': 'Fördert die Stimmung und das allgemeine Wohlbefinden, da es die Serotonin- und Dopaminproduktion unterstützt. Wird auch bei Gelenkschmerzen eingesetzt.',
+        'Sägepalme': 'Hilft bei der Unterstützung der Prostata-Gesundheit und kann Symptome der benignen Prostatahyperplasie (BPH) lindern. Hat auch entzündungshemmende Eigenschaften.',
+        'Schwarzer Knoblauch': 'Reich an Antioxidantien und hat entzündungshemmende Eigenschaften. Unterstützt die Herzgesundheit und das Immunsystem.',
+        'Silizium': 'Fördert die Gesundheit von Haut, Haaren und Nägeln. Unterstützt den Aufbau von Kollagen und trägt zur Stabilität der Knochen bei.',
+        'Süßholzwurzel': 'Hat entzündungshemmende und antioxidative Eigenschaften. Wird häufig zur Unterstützung der Atemwege und bei Verdauungsproblemen verwendet.',
+        'Tribulus Terrestris': 'Fördert die sexuelle Gesundheit und das allgemeine Wohlbefinden. Wird auch zur Steigerung der körperlichen Leistungsfähigkeit und Muskelmasse verwendet.',
+        'Weißdornextrakt': 'Fördert die Herzgesundheit, insbesondere die Durchblutung und den Blutdruck. Wirkt auch antioxidativ und entzündungshemmend.',
+        'Zedernnussöl': 'Reich an essentiellen Fettsäuren, die das Herz-Kreislaufsystem unterstützen. Es fördert auch die Hautgesundheit und wirkt entzündungshemmend.',
+        'Passionsblume': 'Hilft, Stress und Angst zu lindern und fördert einen ruhigeren Schlaf. Die Pflanze enthält Flavonoide, die eine beruhigende Wirkung auf das zentrale Nervensystem haben.',
+        'Beta-Alanin': 'Steigert die Muskelkraft und Ausdauer, indem es die Carnosinspeicher in den Muskeln erhöht. Dies reduziert die Muskelermüdung während intensiver körperlicher Aktivitäten.',
+        'L-Citrullin': 'Fördert die Durchblutung und reduziert Muskelschmerzen nach dem Training. L-Citrullin wird in Arginin umgewandelt, was die Stickstoffoxidproduktion unterstützt.',
+        'L-Glycin': 'Fördert die Schlafqualität und wirkt beruhigend auf das zentrale Nervensystem. Es unterstützt auch die Kollagensynthese und hilft bei der Entgiftung der Leber.',
+        'Zitronenmelisse': 'Unterstützt die Entspannung und hilft bei der Linderung von Nervosität und Schlaflosigkeit. Fördert das allgemeine Wohlbefinden und die Verdauung.',
+       
     };
     
     return benefits[name] || 'Noch keine spezifischen Informationen verfügbar.';
@@ -846,7 +877,38 @@ function getSupplementSideEffects(name) {
         'Baldrian': 'Schläfrigkeit und Magenprobleme.',
         'Maltodextrin': 'Magenprobleme bei hohen Mengen.',
         'Grüner Tee Extrakt': 'Schlaflosigkeit und Magenbeschwerden.',
-        'Vitamin K2': 'Selten Magenprobleme und Kopfschmerzen.'
+        'Vitamin K2': 'Selten Magenprobleme und Kopfschmerzen.',
+        'Glutamin': 'Selten Magen-Darm-Beschwerden oder Blähungen bei hohen Dosen.',
+        'Taurin': 'Selten Magenbeschwerden oder Kopfschmerzen bei hohen Dosen.',
+        'Ginkgo Biloba': 'Kopfschmerzen, Magenbeschwerden und selten allergische Reaktionen. Kann die Blutgerinnung beeinflussen.',
+        'Schwarzkümmelöl': 'Magenreizungen bei hohen Dosen, selten allergische Reaktionen.',
+        'Hopfenextrakt': 'Müdigkeit und Schläfrigkeit, selten allergische Reaktionen.',
+        'Aktivkohle': 'Kann die Aufnahme von Medikamenten beeinträchtigen, Verstopfung.',
+        'Aloe Vera': 'Magen-Darm-Beschwerden, Durchfall bei hohen Dosen.',
+        'Artischockenextrakt': 'Blähungen und Bauchschmerzen bei empfindlichen Personen.',
+        'Astaxanthin': 'Selten Hautreaktionen oder allergische Reaktionen.',
+        'Bromelain': 'Magenbeschwerden oder Durchfall bei hohen Dosen.',
+        'Echinacea': 'Selten allergische Reaktionen, insbesondere bei Personen mit Asthma.',
+        'Grapefruitkernextrakt': 'Magenreizungen, Kopfschmerzen.',
+        'OPC (Traubenkernextrakt)': 'Kopfschmerzen, Magenbeschwerden.',
+        'Probiotika': 'Gasbildung, Blähungen oder Durchfall zu Beginn der Einnahme.',
+        'Rote Beete Pulver': 'Kann zu rotem Urin führen, harmlos, aber unerwartet.',
+        'S-Adenosylmethionin (SAM-e)': 'Übelkeit, Schlaflosigkeit, Kopfschmerzen.',
+        'Sägepalme': 'Selten Magenbeschwerden und Kopfschmerzen.',
+        'Schwarzer Knoblauch': 'Magenbeschwerden, Mundgeruch.',
+        'Silizium': 'Selten Hautausschläge oder Magenprobleme.',
+        'Süßholzwurzel': 'Kann den Blutdruck erhöhen und Kaliumverluste verursachen.',
+        'Tribulus Terrestris': 'Magenprobleme und Schlaflosigkeit bei hoher Dosis.',
+        'Weißdornextrakt': 'Magenbeschwerden, Kopfschmerzen.',
+        'Zedernnussöl': 'Kann Hautreaktionen bei empfindlichen Personen hervorrufen.',
+        'Passionsblume': 'Schläfrigkeit, selten Schwindel und Magen-Darm-Beschwerden.',
+        'Beta-Alanin': 'Kribbelgefühl auf der Haut (Parästhesie), selten Magenbeschwerden bei hohen Dosen.',
+        'L-Citrullin': 'Magenverstimmung, niedriger Blutdruck bei hohen Dosen.',
+        'L-Glycin': 'Müdigkeit und Schläfrigkeit, selten Übelkeit bei hohen Dosen.',
+        'Lavendelöl Kapseln': 'Magenbeschwerden, Kopfschmerzen, selten allergische Reaktionen.',
+        'Zitronenmelisse': 'Schläfrigkeit, Magenprobleme und seltener Schwindel.',
+        
+     
     };
 
     return sideEffects[name] || 'Informationen noch nicht verfügbar.';
