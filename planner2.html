@@ -368,6 +368,25 @@
                     <input type="number" id="weight" class="organic-input" required min="30" max="250" step="0.1">
                 </div>
                 <div class="input-group">
+                    <label>Gender:</label>
+                    <div class="button-group" id="genderGroup">
+                        <button  type="button" class="option-button" data-value="male">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 2v20M2 12h20"/>
+                            </svg>
+                            Male
+                        </button>
+                        <button  type="button" class="option-button" data-value="female">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="18" r="2"/>
+                            </svg>
+                            Female
+                        </button>
+                    </div>
+                </div>
+                <div class="input-group">
                     <label>Aktuelle Gefühlslage:</label>
                     <div class="button-group" id="moodGroup">
                         <button type="button" class="option-button" data-value="happy">
@@ -505,6 +524,7 @@
         function generateSupplementPlan() {
     const height = document.getElementById('height').value;
     const weight = document.getElementById('weight').value;
+    const gender = document.querySelector('#genderGroup .selected')?.dataset.value;
     const mood = document.querySelector('#moodGroup .selected')?.dataset.value;
     const exercise = document.querySelector('#exerciseGroup .selected')?.dataset.value;
     const sleep = document.querySelector('#sleepGroup .selected')?.dataset.value;
@@ -516,6 +536,11 @@
 
     // Füge Supplemente zur passenden Einnahmezeit hinzu
     function addSupplement(icon, name, dosage, description, timeOfDay) {
+
+        if (gender === 'female') {
+                    dosage = adjustDosageForWomen(dosage);
+                }
+
         const supplement = supplementItem(icon, name, dosage, description);
         switch (timeOfDay) {
             case 'morning':
@@ -529,6 +554,15 @@
                 break;
         }
     }
+
+    function adjustDosageForWomen(dosage) {
+                const numericPart = parseFloat(dosage);
+                if (!isNaN(numericPart)) {
+                    const adjustedNumericPart = numericPart * 0.8; // 9% reduction
+                    return dosage.replace(numericPart.toString(), adjustedNumericPart.toFixed(2));
+                }
+                return dosage;
+            }
 
     // Beispielhafter Aufruf der addSupplement-Funktion
     addSupplement('🍎', 'Multivitamin', `1 Tablette täglich`, 'Grundversorgung mit essentiellen Vitaminen und Mineralstoffen', 'morning');
